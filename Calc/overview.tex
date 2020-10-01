@@ -17,22 +17,22 @@
 
 \section{Early Chapters}
 
-The beginning chapters aren't as noteworthy as the later ones, but they are still valuable. The following is a collection of the most important aspects
+The beginning chapters aren't as noteworthy as the later ones, but they are still valuable. The following is a collection of the most important or interesting parts
 
 \subsection{Dot Products}
 Dot products are a form of vector multiplication. 
 
-\textbf{Definition:} The dot product of two vectors ($\vec{A} \cdot \vec{B}$) is the projection of one onto the other times the length of the projection and the vector being projected on.
+\textbf{Definition:} The dot product of two vectors ($\vec{A} \cdot \vec{B}$) is a real number given by the length of the projection of one vector onto another times the length of the vector being projected on.
 
 That's a mouthful, and I like pictures.
 
 \begin{figure}[h]
     \centering 
     \includegraphics[width=0.30\textwidth]{dotproduct}
-    \caption{The dot product}
+    \caption{A dot product in progress, as A is being projected onto B}
 \end{figure}
 
-Numerically, this projection is $|\vec{A}| cos(\theta) |\vec{B}|$, which corresponds to the component of A that lies on B, times their lengths.
+Numerically, this projection is $|\vec{A}| cos(\theta) |\vec{B}|$, which corresponds to the length of the component of A that lies on B, times the length of B.
 
 This definition derives some very useful other expressions, such as 
 
@@ -61,7 +61,8 @@ What helped me was realizing that this definition is equivalent to applying the 
     = A_1 B_1 + A_2 B_2 + A_3 B_3
 \end{gather*}
 
-This amounts to projecting A onto each component of B, which is just the corresponding component of A (projecting a vector onto a vertical vector is the same as taking the vertical component of the first vector and so on), and multiplying their lengths, which gives us exactly the algebraic definition of the dot product
+This amounts to projecting A onto each component of B, which is just the corresponding component of A (projecting a vector onto a vertical vector is the same as taking the vertical component of the first vector and so on), 
+multiplying their lengths, and adding all of those multiplications up, which gives us exactly the algebraic definition of the dot product
 
 
 \subsection{Cross Products}
@@ -107,7 +108,7 @@ The vector form of a line is as follows:
 \begin{displaymath}
     L = \{\vec{r}(t) = P_0 + t\vec{d}\}
 \end{displaymath}
-Where $P_0$ is the point, and $\vec{d}$ is the direction vector of the line, the 3-space analog of a line's slope.
+Where $P_0$ is the point, and $\vec{d}$ is the direction vector of the line, the 3-space analog of a line's slope, and $t$ is some real number to scale the direction vector by.
 
 This can also be rewritten in terms of each component of the vector that is returned by $\vec{r}(t)$, known as the parametric form of the line
 
@@ -129,6 +130,22 @@ To compare to the other forms, all of the following draw the same line
         y = 0 + 1t\\
     \end{cases}
 \end{gather*}
+
+As a sidenote, if you want to represent a line segement, instead of an infinite line, the idea is pretty cool. The line segement between two points starts at the first point and follows a vector formed by subtracting the points, and clamping $t$ between 0 and 1.
+
+So the segment between $(a, b)$ and $(c, d)$ is represented by
+
+\begin{gather*}
+    \{\vec{r}(t) = (a,b) + t\left((c - a, d - b)\right)\}\\
+    0 \leq t \leq 1
+\end{gather*}
+
+And checking this for $t = 1$ gives you 
+\begin{displaymath}
+    (a, b) + (c, d) - (a, b) = (c, d)
+\end{displaymath}
+
+And at 0 you get $(a, b)$, so the line will only exist between the two points. Pretty neat idea.
 
 \subsection{Vector and 3D Functions}
 
@@ -164,22 +181,6 @@ A little manipulation of that later and we get a way to linearize the function, 
 \end{displaymath}
 
 Where $(a, b)$ is the point where you start, and $(x, y)$ is where you end up. Which amounts to starting at $(a, b)$, and walking a bit in the x multiplied by $\frac{\partial f}{\partial x}$, which is the slope (rise / run) in the x times the run, so you get the z that you should go up by, and you do the same in the y axis
-
-\subsubsection{Directional Derivatives}
-What if instead of nudging a 3D function by x or y, we nudge it along some vector?
-Pick some vector $\vec{v} = (a, b)$ to nudge along. This is like nudging by a in the x direction, and b in the y direction.
-The directional derivative is
-\begin{gather*}
-    {\nabla}_{\vec{v}} f(x, y) 
-    = a\frac{\partial f}{\partial x} + b\frac{\partial f}{\partial y} 
-    = \vec{v} \cdot \nabla f(x, y)
-\end{gather*}
-
-Note the subscript of $\nabla$. Without it it's the gradient, as on the right, and with it it's the directional derivative.
-Similar to a partial derivative, this corresponds to a slice of the graph of a 3D function from some plane that isn't necessarily parallel to either axis x or y.
-That slice gives us some 2d function, where some step along that vector corresponds to a change in z, and some people write the directional vector as
-\Large $\frac{\partial f}{\partial \vec{v}}$ \normalsize to denote this.
-
 
 \subsubsection{Contour Maps}
 Before we leave 3D functions it's worth mentioning contour maps because they're cool.
@@ -279,7 +280,7 @@ This gives you what we had earlier. You keep unpacking various partial derivativ
 
 My professor really likes emphasizing this derivative matrix $Df(x)$, which I think is supposed to be the \href{https://en.wikipedia.org/wiki/Total_derivative}{Total Derivative} but everything about this seems like we'll get to it later so I'll skip it for now and instead focus on
 
-\section{The Gradient}
+\section{The Gradient and Directional Derivatives}
 So first off, the gradient is, according to Grant Sanderson, weird. We'll start with the algebraic definition.
 
 \begin{gather*}
@@ -294,7 +295,7 @@ So first off, the gradient is, according to Grant Sanderson, weird. We'll start 
     = (2x\sin(y), x^2\cos(y))
 \end{gather*}
 
-With this, it's important to note that the gradient is a \textbf{vector valued function}, which is a vector of the partial derivatives of f. (Grant called this a full derivative, as it contains all of the partial derivatives).
+With this, it's important to note that the gradient is a \textbf{vector valued function}, which is a vector of all the partial derivatives of f. (Grant called this a full derivative, as it contains all of the partial derivatives).
 
 A helpful way to think of this is
 \begin{gather*}
@@ -311,7 +312,29 @@ And that $\nabla f(x)$ distributes $f(x)$ over that vector.
 
 This is fine. It's a vector of partial derivatives, so what? What's neat about this is that it gives the direction of steepest ascent. That isn't at all intuitive at all, though. We just have a whole bunch of slopes in a whole bunch of directions. What gives?
 
-Imagine you are at a point on a 3D graph. In order to climb the graph as fast as possible, you want to find the largest slope from a directional derivative along some unit vector evaluated at your point. (A unit vector because a $\vec{\infty}$ would always be the best choice)
+First, a quick detour:
+
+\subsection{Directional Derivatives}
+What if instead of nudging a 3D function by x or y, we nudge it along some vector?
+Pick some vector $\vec{v} = (a, b)$ to nudge along. This is like nudging by a in the x direction, and b in the y direction.
+The directional derivative is
+\begin{gather*}
+    {\nabla}_{\vec{v}} f(x, y) 
+    = a\frac{\partial f}{\partial x} + b\frac{\partial f}{\partial y} 
+    = \vec{v} \cdot \nabla f(x, y)
+\end{gather*}
+
+Note the subscript of $\nabla$. Without it it's the gradient, as on the right, and with it it's the directional derivative.
+Similar to a partial derivative, this corresponds to a slice of the graph of a 3D function from some plane that isn't necessarily parallel to either axis x or y.
+That slice gives us some 2d function, where some step along that vector corresponds to a change in z, and some people write the directional vector as \Large $\frac{\partial f}{\partial \vec{v}}$ \normalsize to denote this.
+
+That said, the line to remember is that the directional derivative is a partial derivative along some vector, instead of an axis. This is also results in giving you the slope of a graph when you walk along some vector, but you should be careful that when you are looking for the slope, you take a unit vector as the direction, otherwise you could get some multiple of the actual slope. 
+
+Okay, with that in mind let's think about...
+
+\subsection{Why the Gradient Gives the Direction of Steepest Ascent}
+
+Imagine you are at a point on a 3D graph. In order to climb the graph as fast as possible, you want to find the largest slope from a directional derivative along some unit vector evaluated at your point. (A unit vector because $\vec{\infty}$ would always be the best choice)
 
 To find this best vector, consider what the directional derivative actually is.
 
@@ -321,7 +344,7 @@ To find this best vector, consider what the directional derivative actually is.
 
 If we want to maximize $\nabla_{\vec{v}} f(a, b)$, we really need to figure out what $\vec{v}$ dotted with $\nabla f(a, b)$ will give us the biggest slope (remember that $\vec{v}$ is a unit vector).
 
-A dot product equals $|a| |b| \cos(\theta)$. When the vectors lie on the same line ($\cos(\theta) = 1$) then we get a maximal dot product, assuming $|a|\ \&\ |b|$ are fixed, which they are in a directional derivative.
+A dot product equals $|a| |b| \cos(\theta)$. When the vectors lie on the same line, ($\cos(\theta) = 1$) we get a maximal dot product, assuming $|a|\ \&\ |b|$ are fixed, which they are in a directional derivative.
 
 Therefore, the best unit $\vec{v}$ will be on the same line as $\nabla f(a, b)$. It needs to be a unit vector, so take $\frac{\nabla f(a, b)}{|\nabla f(a, b)|}$ and you get a unit vector that returns the highest possible slope from a directional derivative
 

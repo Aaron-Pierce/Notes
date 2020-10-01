@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1601587449 "/home/aaron/Projects/Notes/Calc/overview.tex" "/home/aaron/Projects/Notes/Calc/overview.pdf" "overview" 1601587450
-  "/home/aaron/Projects/Notes/Calc/overview.aux" 1601587450 2337 04971f940bf2a36ec5eb94e3fb92f6f5 ""
-  "/home/aaron/Projects/Notes/Calc/overview.tex" 1601587448 19189 c910f3af27d09bf638401cf0169de970 ""
+["pdflatex"] 1601589118 "/home/aaron/Projects/Notes/Calc/overview.tex" "/home/aaron/Projects/Notes/Calc/overview.pdf" "overview" 1601589119
+  "/home/aaron/Projects/Notes/Calc/overview.aux" 1601589119 2561 d92ae0d0d3fcf4d16f12e7a6faa43b31 ""
+  "/home/aaron/Projects/Notes/Calc/overview.tex" 1601589117 20591 a172489dac9c49ef6ac02093d46b72cf ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1591545468 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1591545468 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1591545468 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -152,13 +152,13 @@
   "contourmap.png" 1601582888 73797 14e2220b64d11e553580008de88b3284 ""
   "crossproduct.png" 1601515095 6965 134d73c92fd204cfc7e99db1e678bc9a ""
   "dotproduct.png" 1601507961 4810 296a9c3c86a9d9e4ee8a3cd402661760 ""
-  "overview.aux" 1601587450 2337 04971f940bf2a36ec5eb94e3fb92f6f5 "pdflatex"
-  "overview.out" 1601587450 592 86a1e338a68f87f33b8fc5a02adec290 "pdflatex"
-  "overview.tex" 1601587448 19189 c910f3af27d09bf638401cf0169de970 ""
+  "overview.aux" 1601589119 2561 d92ae0d0d3fcf4d16f12e7a6faa43b31 "pdflatex"
+  "overview.out" 1601589119 715 366cb324e2684db55d554f71fec6c365 "pdflatex"
+  "overview.tex" 1601589117 20591 a172489dac9c49ef6ac02093d46b72cf ""
   (generated)
-  "overview.log"
-  "/home/aaron/Projects/Notes/Calc/overview.log"
   "overview.aux"
-  "overview.pdf"
+  "/home/aaron/Projects/Notes/Calc/overview.log"
+  "overview.log"
   "/home/aaron/Projects/Notes/Calc/overview.pdf"
   "overview.out"
+  "overview.pdf"
