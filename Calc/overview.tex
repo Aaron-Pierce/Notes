@@ -1,0 +1,239 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{tikz}
+
+\title{Notes on Calculus III}
+\author{Aaron Pierce}
+\date{} % to remove date from \maketitle
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section{Early Chapters}
+
+The beginning chapters aren't as noteworthy as the later ones, but they are still valuable. The following is a collection of the most important aspects
+
+\subsection{Dot Products}
+Dot products are a form of vector multiplication. 
+
+\textbf{Definition:} The dot product of two vectors ($\vec{A} \cdot \vec{B}$) is the projection of one onto the other times the length of the projection and the vector being projected on.
+
+That's a mouthful, and I like pictures.
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.30\textwidth]{dotproduct}
+    \caption{The dot product}
+\end{figure}
+
+Numerically, this projection is $|\vec{A}| cos(\theta) |\vec{B}|$, which corresponds to the component of A that lies on B, times their lengths.
+
+This definition derives some very useful other expressions, such as 
+
+\begin{equation}
+    \cos(\theta) = \frac{\vec{A} \cdot \vec{B}}{|\vec{A}||\vec{B}|}
+\end{equation}
+\begin{equation}
+    comp_{\vec{B}} \vec{A} = \frac{\vec{A} \cdot \vec{B}}{|\vec{B}|} = \vec{A}\cos(\theta)
+\end{equation}
+
+Another way to define the dot product is the sum of the products of the components of the vectors. Another mouthful. The math is a easier to understand
+\begin{gather*}
+    \text{Let} \vec{A} = (A_1, A_2, ..., A_n)\\
+    \text{Let} \vec{B} = (B_1, B_2, ..., B_n)\\
+    \vec{A} \cdot \vec{B} = A_1 B_1 + A_2 B_2 + ... + A_n B_n
+\end{gather*}
+Let's call this the algebraic definition, as opposed to the projection or geometric definition from earlier.\\
+This was surprising to me. How is this equivalent to the projection definition from earlier?
+What helped me was realizing that this definition is equivalent to applying the geometric definition over the components of B.
+
+\begin{gather*}
+    \text{Let} \vec{A} = (A_1, A_2, A_3)\\
+    \text{Let} \vec{B} = (B_1, B_2, B_3)\\
+    \vec{B} = (B_1, 0, 0) + (0, B_2, 0) + (0, 0, B_3)\\
+    \vec{A} \cdot \vec{B} =  \vec{A} \cdot (B_1, 0, 0) + \vec{A} \cdot (0, B_2, 0) + \vec{A} \cdot (0, 0, B_3)\\
+    = A_1 B_1 + A_2 B_2 + A_3 B_3
+\end{gather*}
+
+This amounts to projecting A onto each component of B, which is just the corresponding component of A (projecting a vector onto a vertical vector is the same as taking the vertical component of the first vector and so on), and multiplying their lengths, which gives us exactly the algebraic definition of the dot product
+
+
+\subsection{Cross Products}
+Cross products are, in my head, the counterpoint to a dot product. Whereas you can think of the dot product as what two vectors have in common (the component of one on another), the cross product gives the opposite, what the vectors do not have in common
+
+Yet again we have two definitions, a geometric definition (again preferred by me), and an algebraic one
+
+\textbf{Geometric Definition:} The cross product of two vectors ($\vec{A} \times \vec{B}$) is a new vector that is orthogonal to both vectors, whose length is equal to the area of the parallelogram formed by the two vectors being crossed.
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.30\textwidth]{crossproduct}
+    \caption{The cross product}
+\end{figure}
+
+This seems a little strange. Why this definition of all things? It becomes a little clearer when we consider what the area of a parallelogram actually is.
+This area is given by the base times the height, or for the vectors in the picture, $|\vec{A}| |\vec{B}|\sin(\theta)$, because $|\vec{A}|$ is the length of the base and $|\vec{B}|\sin(\theta)$ gives the height
+
+So if the length of the cross product is this area, then $|\vec{A} \times \vec{B}| = |\vec{A}| |\vec{B}|\sin(\theta)$, and because we have introduced $\theta$, this becomes a very useful formula.
+
+One use is to find the distance from a point and a line, which can be computed by crossing two vectors to form a parallelogram between the line and the point, and dividing by the length of its base to find the point's distance off the line.
+
+It's worth specifically noting that the cross product returning an orthogonal vector is particularly powerful and useful. The length is arguably less useful of the two properties.
+
+Actually computing this cross product is a little strange and unexplained to me, but I'll leave it here
+\begin{align*}
+    det
+    \begin{vmatrix}
+        \hat{i} & \hat{j} & \hat{k} \\
+        A_1 & A_2 & A_3 \\
+        B_1 & B_2 & B_3 \\
+    \end{vmatrix}
+\end{align*}
+
+It's unclear to me why this produces an orthogonal vector, or why it is the length of the area of the parallelogram. Further research needed.
+
+\subsection{Vector/Parametric Forms of Lines}
+
+This is a short one. In $\mathbf{R}^2$, lines can be defined in point slope form. You start at a point, follow a slope, and you get your line. 
+There's a similar concept in $\mathbf{R}^3$, with the vector form of a line. You start at a point, follow a vector, and you get your line.
+
+The vector form of a line is as follows:
+\begin{displaymath}
+    L = \{\vec{r}(t) = P_0 + t\vec{d}\}
+\end{displaymath}
+Where $P_0$ is the point, and $\vec{d}$ is the direction vector of the line, the 3-space analog of a line's slope.
+
+This can also be rewritten in terms of each component of the vector that is returned by $\vec{r}(t)$, known as the parametric form of the line
+
+\begin{gather*}
+    x = P_{0x} + \vec{d}_xt\\
+    y = P_{0y} + \vec{d}_yt\\
+    z = P_{0z} + \vec{d}_zt\\
+\end{gather*}
+
+
+To compare to the other forms, all of the following draw the same line
+\begin{gather*}
+    y = x \\
+    y - 0 = 1 (x - 0)\\
+    L = \{\vec{r}(t) = (0, 0) + (1, 1)t\}\\
+    \vec{r}(t)= (x, y): 
+    \begin{cases}
+        x = 0 + 1t\\
+        y = 0 + 1t\\
+    \end{cases}
+\end{gather*}
+
+\subsection{Vector and 3D Functions}
+
+Vector functions are pretty quick.
+\begin{displaymath}
+    \vec{v}(t) = (x(t), y(t), \dots)
+\end{displaymath}
+
+Their derivatives are the derivatives of the components of their vectors, and the usual derivative rules (product, quotient, etc.) work the way you would expect.
+
+3D (or higher) functions are just as quick. Some function of x and y returns a z value, essentially taking the xy plane and raising it up along the z axis at each point $(x, y)$ to the value $f(x, y)$
+
+If you want to take a derivative of these, you have to take some care, because there are now two axises in which you can move, so the notion of a derivative becomes a bit fuzzy. Enter the partial derivative
+
+\textbf{Definition:} The partial derivative of a function is the derivative of a multidimensional function along a single axis. You take a slice of the surface created by the function, and the resulting single dimension of movement is the respect of the derivative. All other variables are treated as constants.
+
+\begin{gather*}
+    \frac{\partial}{\partial x}(f(x) = xy) = (1x^0)y \\
+    \frac{\partial}{\partial y}(f(x) = xy) = x(1y^0)
+\end{gather*}
+
+One of the uses of the derivative in 2 dimensions was to approximate a function. The tangent line is pretty close to the function at very small steps. In 3d, we need a tangent plane, to represent the two dimensions of movement we have.
+
+To find a tangent line in $\textbf{R}^2$, we used a point and a slope $y - y_0 = f^\prime (x)(x-x_0)$. In $\textbf{R}^3$, we need two slopes, so 
+\begin{displaymath}
+    z - z_0 = \frac{\partial f}{\partial x}(x - x_0) + \frac{\partial f}{\partial y}(y - y_0)
+\end{displaymath}
+represents the tangent plane.
+
+A little manipulation of that later and we get a way to linearize the function, which is pretty similar
+\begin{displaymath}
+    f(x, y) \approx f(a, b) + \frac{\partial f(a, b)}{\partial x}(x - a) + \frac{\partial f(a, b)}{\partial y}(y - b)
+\end{displaymath}
+
+Where $(a, b)$ is the point where you start, and $(x, y)$ is where you end up. Which amounts to starting at $(a, b)$, and walking a bit in the x multiplied by $\frac{\partial f}{\partial x}$, which is the slope (rise / run) in the x times the run, so you get the z that you should go up by, and you do the same in the y axis
+
+\section{The Multidimensional Chain Rule}
+What came before was all pretty clear the first time through. After this, though, was when the lectures started to get muddy, which inspired me to take some more detailed notes.
+
+The multidimension chain rule is a weird one. I couldn't ever find a satisfactory answer, intuition, or explanation for why it made sense.
+
+It helped to first consider the single dimension chain rule.
+
+\begin{gather*}
+    \text{For a function} f(g(x)), \text{Let} u = g(x) \\
+    \frac{d}{dx} f(g(x)) = \frac{d}{dx} f(u) = f^\prime (u)\frac{du}{dx}\\
+    \frac{du}{dx} = g^\prime (x)\\
+    \frac{d}{dx} f(g(x)) = f^\prime (g(x)) g^\prime (x)
+\end{gather*}
+
+This is still pretty shallow for me. Seems more like a trick of notation than something that makes sense. If we go back and consider the derivative, though, it is definitionally the change in the value of the function when you change the input by a little bit.
+\begin{gather*}
+    f(x) = x^2\\
+    f(x + dx) = (x+dx)^2\\
+    = x^2 + 2xdx + {dx}^2\\
+\end{gather*}
+
+So when we nudge the function by $dx$, we get $x^2 + 2xdx + {dx}^2$. Before the nudge, the function was $x^2$, so the nudge changes the function by $2xdx + dx^2$. As $dx \to 0$, the value of $dx^2$ becomes very small and much less significant than $2xdx$. So when we nudge the function, its return value meaningfully changes by twice the value of the function at x, times the tiny nudge we made in the x, meaning that $f^\prime (x) = 2x\ dx$. This is where the power rule comes from.
+
+When we nudge $f(g(x))$, we first nudge $g(x)$ by something, and the new value then becomes the input of $f$. The change is g is not a second nudge of f, though, it is an entirely new value.
+
+Let's ignore $g(x)$ for a second. So long as $g(x)$ is differentiable, then a small change in x would feel no different than if we nudged $g(x)$ as far as $f$ is concerned. 
+Let's call $g(x)$ $u$ instead. A small nudge in $u$, du, corresponds to a change of $f^\prime (u)\ du$. The nudge du is itself the change in $g$ when you change x, that nudge is $g^\prime (x)\ dx$, which gives us the chain rule
+
+\begin{gather*}
+    \frac{d}{dx} f(g(x)) = f^\prime (u)\ du\\
+    du = \frac{du}{dx}dx = g^\prime (x) dx\\
+    \frac{d}{dx} f(g(x)) = f^\prime (g(x)) g^\prime (x)\ dx
+\end{gather*}
+
+Okay, so with the single dimensional chain rule out of the way we still have a beast left. Let's look at some math first.
+\begin{gather*}
+    \text{Let} f(a, b) = a + b\\
+    \text{What is } \frac{\partial}{\partial x}f(x^2, y^3).
+\end{gather*}
+
+The first thing to note is that a and b are private variables. The user who is feeding x's and y's into f has only indirect control over a and b. This means that taking a partial derivative with respect to a or b means nothing here, because the user inputting variables only knows what x and y are, and has never heard of a and b
+
+Now, if you're just looking at this, you can just plug the functions in.
+
+\begin{gather*}
+    f(x^2, y^3) = x^2 + y^3\\
+    \frac{\partial f}{\partial x} = 2x \\
+    \frac{\partial f}{\partial y} = 3y^2
+\end{gather*}
+
+So you dont actually \emph{need} the chain rule. You could plug all of the functions in and take a partial derivative as normal.
+However, if your functions get complex, say $f(u, v) = u^2sin^2(v)$ and $u$ and $v$ are themselves complicated, the partial derivatives get annoying really fast, so having a way to pre-compute this with a formula would be nice.
+
+Let's take that example. for $f(sin(x), cos(y))$ what happens when we nudge x? Let's again call sin(x) u.
+
+\begin{gather*}
+    f(u, \cos(y)) = u^2\sin^2(\cos(y))\\
+    \frac{\partial f}{\partial u} = 2u(\sin^2(\cos(y))\ du\\
+    du = \frac{du}{dx}dx = \cos(x) dx\\
+    \frac{\partial f}{\partial u} = 2\sin(x)(\sin^2(\cos(y))\cos(x)\\
+\end{gather*}
+
+Okay, that's all fine and good I guess, but what does it actually mean? The first thing we did was ignore sin(x). We want a change in f with a change in x, but a change in x makes a change in u, so we considered the change in u first.
+The change caused by u was $\frac{\partial f}{\partial u}$, which is some term times du. So what is du? We really want a change with respect to x, so how can we find du in terms of dx?
+We can take $\frac{du}{dx}$, because u depends on the variable x, and then multiply that by dx, so that we're left with du.
+
+So if $\frac{\partial f}{\partial u}$ is something times du, and du is $\frac{du}{dx} dx$, then $\frac{\partial f}{\partial x} = \frac{\partial f}{\partial u} \frac{du}{dx}$
+This makes some sense. If we nudge x and it doubles u, and if we nudge u and it doubles f, it makes sense that nudging x quadruples f.
+
+This is nice, but what if v also depends on x? Then we also have to think about v now! So when we nudge x it makes some change to u, which makes a change to f, but it also makes a change to v, which makes a change to f. What's the total change?
+Well u and v aren't really related. The function can do whatever it wants with u and v, but no matter what, when you take a partial derivative of one, the other is constant. Unless they're the same thing, but that's beside the point.
+Because they create two independent changes, you just add them. You change x, it changes u, which changes f. It also changes v, which changes f. u and v don't change each other, so you don't multiply them or compose them or do anything fancy. The partial derivative is just the sum of the changes.
+\end{document}
