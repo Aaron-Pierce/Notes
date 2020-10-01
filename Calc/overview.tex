@@ -187,7 +187,7 @@ This is still pretty shallow for me. Seems more like a trick of notation than so
 
 So when we nudge the function by $dx$, we get $x^2 + 2xdx + {dx}^2$. Before the nudge, the function was $x^2$, so the nudge changes the function by $2xdx + dx^2$. As $dx \to 0$, the value of $dx^2$ becomes very small and much less significant than $2xdx$. So when we nudge the function, its return value meaningfully changes by twice the value of the function at x, times the tiny nudge we made in the x, meaning that $f^\prime (x) = 2x\ dx$. This is where the power rule comes from.
 
-When we nudge $f(g(x))$, we first nudge $g(x)$ by something, and the new value then becomes the input of $f$. The change is g is not a second nudge of f, though, it is an entirely new value.
+When we nudge $f(g(x))$, we first nudge $g(x)$ by something, and the new value then becomes the input of $f$.
 
 Let's ignore $g(x)$ for a second. So long as $g(x)$ is differentiable, then a small change in x would feel no different than if we nudged $g(x)$ as far as $f$ is concerned. 
 Let's call $g(x)$ $u$ instead. A small nudge in $u$, du, corresponds to a change of $f^\prime (u)\ du$. The nudge du is itself the change in $g$ when you change x, that nudge is $g^\prime (x)\ dx$, which gives us the chain rule
@@ -198,7 +198,7 @@ Let's call $g(x)$ $u$ instead. A small nudge in $u$, du, corresponds to a change
     \frac{d}{dx} f(g(x)) = f^\prime (g(x)) g^\prime (x)\ dx
 \end{gather*}
 
-Okay, so with the single dimensional chain rule out of the way we still have a beast left. Let's look at some math first.
+Okay, so with the single dimensional chain rule out of the way we still have a beast left. Let's look at something easy first.
 \begin{gather*}
     \text{Let} f(a, b) = a + b\\
     \text{What is } \frac{\partial}{\partial x}f(x^2, y^3).
@@ -231,9 +231,23 @@ The change caused by u was $\frac{\partial f}{\partial u}$, which is some term t
 We can take $\frac{du}{dx}$, because u depends on the variable x, and then multiply that by dx, so that we're left with du.
 
 So if $\frac{\partial f}{\partial u}$ is something times du, and du is $\frac{du}{dx} dx$, then $\frac{\partial f}{\partial x} = \frac{\partial f}{\partial u} \frac{du}{dx}$
-This makes some sense. If we nudge x and it doubles u, and if we nudge u and it doubles f, it makes sense that nudging x quadruples f.
+This makes some sense. If we nudge x and it doubles u, and if we nudge u and it doubles f, it makes sense that nudging x quadruples f (by multiplying, not squaring/exponentiating).
 
 This is nice, but what if v also depends on x? Then we also have to think about v now! So when we nudge x it makes some change to u, which makes a change to f, but it also makes a change to v, which makes a change to f. What's the total change?
 Well u and v aren't really related. The function can do whatever it wants with u and v, but no matter what, when you take a partial derivative of one, the other is constant. Unless they're the same thing, but that's beside the point.
 Because they create two independent changes, you just add them. You change x, it changes u, which changes f. It also changes v, which changes f. u and v don't change each other, so you don't multiply them or compose them or do anything fancy. The partial derivative is just the sum of the changes.
+
+This is all honestly shallow intuition. I still don't really get all of this. My saving grace is this tree
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.5\textwidth]{chainruletree}
+    \caption{How to compute a multidimensional chain rule}
+\end{figure}
+
+If you want \large$\frac{\partial z}{\partial s}$ \normalsize you follow all of the branches to s, multiply down the branch, and add the various branches. So,
+\begin{gather*}
+    \frac{\partial z}{\partial s} = \frac{\partial z}{\partial x} \frac{\partial x}{\partial s} + \frac{\partial z}{\partial y} \frac{\partial y}{\partial s}
+\end{gather*}
+This gives you what we had earlier. You keep unpacking various partial derivatives until you reach the variable you want, and then add all of the independent changes. I particularly like this tree becuase you could go 9 functions deep and it works the same way
+
 \end{document}
