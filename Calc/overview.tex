@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{parskip}
 \usepackage{tikz}
+\usepackage{hyperref}
 
 \title{Notes on Calculus III}
 \author{Aaron Pierce}
@@ -164,6 +165,32 @@ A little manipulation of that later and we get a way to linearize the function, 
 
 Where $(a, b)$ is the point where you start, and $(x, y)$ is where you end up. Which amounts to starting at $(a, b)$, and walking a bit in the x multiplied by $\frac{\partial f}{\partial x}$, which is the slope (rise / run) in the x times the run, so you get the z that you should go up by, and you do the same in the y axis
 
+\subsubsection{Directional Derivatives}
+What if instead of nudging a 3D function by x or y, we nudge it along some vector?
+Pick some vector $\vec{v} = (a, b)$ to nudge along. This is like nudging by a in the x direction, and b in the y direction.
+The directional derivative is
+\begin{gather*}
+    {\nabla}_{\vec{v}} f(x, y) 
+    = a\frac{\partial f}{\partial x} + b\frac{\partial f}{\partial y} 
+    = \vec{v} \cdot \nabla f(x, y)
+\end{gather*}
+
+Note the subscript of $\nabla$. Without it it's the gradient, as on the right, and with it it's the directional derivative.
+Similar to a partial derivative, this corresponds to a slice of the graph of a 3D function from some plane that isn't necessarily parallel to either axis x or y.
+That slice gives us some 2d function, where some step along that vector corresponds to a change in z, and some people write the directional vector as
+\Large $\frac{\partial f}{\partial \vec{v}}$ \normalsize to denote this.
+
+
+\subsubsection{Contour Maps}
+Before we leave 3D functions it's worth mentioning contour maps because they're cool.
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.5\textwidth]{contourmap}
+    \caption{A contour map of some mound}
+\end{figure}
+
+The contour map of a 3d function is created by taking horizontal slices of the function at constant z values. This creates a neat way of visualizing these functions and will be useful for gradient fields later.
+
 \section{The Multidimensional Chain Rule}
 What came before was all pretty clear the first time through. After this, though, was when the lectures started to get muddy, which inspired me to take some more detailed notes.
 
@@ -250,4 +277,55 @@ If you want \large$\frac{\partial z}{\partial s}$ \normalsize you follow all of 
 \end{gather*}
 This gives you what we had earlier. You keep unpacking various partial derivatives until you reach the variable you want, and then add all of the independent changes. I particularly like this tree becuase you could go 9 functions deep and it works the same way
 
+My professor really likes emphasizing this derivative matrix $Df(x)$, which I think is supposed to be the \href{https://en.wikipedia.org/wiki/Total_derivative}{Total Derivative} but everything about this seems like we'll get to it later so I'll skip it for now and instead focus on
+
+\section{The Gradient}
+So first off, the gradient is, according to Grant Sanderson, weird. We'll start with the algebraic definition.
+
+\begin{gather*}
+    \nabla f(x, y, ...) = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \dots)
+\end{gather*}
+
+\begin{gather*}
+    \text{Let} f(x, y) = x^2 sin(y)\\
+    \frac{\partial f}{\partial x} = 2x\sin(y) \\
+    \frac{\partial f}{\partial y} = x^2\cos(y) \\
+    \nabla f(x, y) = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}) \\
+    = (2x\sin(y), x^2\cos(y))
+\end{gather*}
+
+With this, it's important to note that the gradient is a \textbf{vector valued function}, which is a vector of the partial derivatives of f. (Grant called this a full derivative, as it contains all of the partial derivatives).
+
+A helpful way to think of this is
+\begin{gather*}
+    \LARGE
+    \nabla = \begin{bmatrix}
+        \frac{\partial}{\partial x}\\
+        \frac{\partial}{\partial y}\\
+        \vdots
+    \end{bmatrix}
+    \normalsize
+\end{gather*}
+
+And that $\nabla f(x)$ distributes $f(x)$ over that vector.
+
+This is fine. It's a vector of partial derivatives, so what? What's neat about this is that it gives the direction of steepest ascent. That isn't at all intuitive at all, though. We just have a whole bunch of slopes in a whole bunch of directions. What gives?
+
+Imagine you are at a point on a 3D graph. In order to climb the graph as fast as possible, you want to find the largest slope from a directional derivative along some unit vector evaluated at your point. (A unit vector because a $\vec{\infty}$ would always be the best choice)
+
+To find this best vector, consider what the directional derivative actually is.
+
+\begin{displaymath}
+    \nabla_{\vec{v}} f(a, b) = \nabla f(a, b) \cdot \vec{v}
+\end{displaymath}
+
+If we want to maximize $\nabla_{\vec{v}} f(a, b)$, we really need to figure out what $\vec{v}$ dotted with $\nabla f(a, b)$ will give us the biggest slope (remember that $\vec{v}$ is a unit vector).
+
+A dot product equals $|a| |b| \cos(\theta)$. When the vectors lie on the same line ($\cos(\theta) = 1$) then we get a maximal dot product, assuming $|a|\ \&\ |b|$ are fixed, which they are in a directional derivative.
+
+Therefore, the best unit $\vec{v}$ will be on the same line as $\nabla f(a, b)$. It needs to be a unit vector, so take $\frac{\nabla f(a, b)}{|\nabla f(a, b)|}$ and you get a unit vector that returns the highest possible slope from a directional derivative
+
+The gradient itself, evaluated at $(a, b)$, normalized, will then be the vector that, when traveled along, results in the greatest increase in altitude, because it is the highest slope, as we got from maximizing the directional derivative
+
+Pretty cool stuff. It's the backbone of the Gradient Descent Algorithm and I implemented it for a \href{https://github.com/SAXTEN2011/LinearRegression/blob/master/index.js}{Linear Regression Model}
 \end{document}
