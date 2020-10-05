@@ -163,7 +163,7 @@ Their derivatives are the derivatives of the components of their vectors, and th
 
 3D (or higher) functions are just as quick. Some function of x and y returns a z value, essentially taking the xy plane and raising it up along the z axis at each point $(x, y)$ to the value $f(x, y)$
 
-If you want to take a derivative of these, you have to take some care, because there are now two axises in which you can move, so the notion of a derivative becomes a bit fuzzy. Enter the partial derivative
+If you want to take a derivative of these, you have to take some care, because there are now two axes in which you can move, so the notion of a derivative becomes a bit fuzzy. Enter the partial derivative
 
 \textbf{Definition:} The partial derivative of a function is the derivative of a multidimensional function along a single axis. You take a slice of the surface created by the function, and the resulting single dimension of movement is the respect of the derivative. All other variables are treated as constants.
 
@@ -172,7 +172,8 @@ If you want to take a derivative of these, you have to take some care, because t
     \frac{\partial}{\partial y}(f(x) = xy) = x(1y^0)
 \end{gather*}
 
-One of the uses of the derivative in 2 dimensions was to approximate a function. The tangent line is pretty close to the function at very small steps. In 3d, we need a tangent plane, to represent the two dimensions of movement we have.
+\subsubsection{Tangent Planes and Linearization}
+One of the uses of the derivative in 2 dimensions was to approximate a function. The tangent line is pretty close to the function at very small steps. In 3D, we need a tangent plane, to represent the two dimensions of movement we have.
 
 To find a tangent line in $\textbf{R}^2$, we used a point and a slope $y - y_0 = f^\prime (x)(x-x_0)$. In $\textbf{R}^3$, we need two slopes, so 
 \begin{displaymath}
@@ -187,14 +188,26 @@ A little manipulation of that later and we get a way to linearize the function, 
 
 Where $(a, b)$ is the point where you start, and $(x, y)$ is where you end up. Which amounts to starting at $(a, b)$, and walking a bit in the x multiplied by $\frac{\partial f}{\partial x}$, which is the slope (rise / run) in the x times the run, so you get the z that you should go up by, and you do the same in the y axis
 
+We can think of tangent planes, tangent lines, and linearizations as applications of \textbf{differentials}. \textbf{Differentials} are generally linearizations of functions in whatever dimension the function is in. In two dimensions, the differential of a function is $dy = f^\prime (x)dx$, for any arbitrary dx. This gives you an equation for a tangent line. It's a slope times a change in the "run", so you get a rise.
+
+In 3-space, the differential becomes slightly less clear because $f^\prime (x)$ now has to become partial derivatives. In 3-space $z$ changes instead of 2-space's $y$, but z can change in both the x and y axes. So to incorporate both of these, the total $dz$ will be dependent on $dz_x$ and $dz_y$.
+
+We call then call $dz$ the total differential, defined by
+\begin{gather*}
+    dz = \frac{\partial f}{\partial x}(x, y)dx + \frac{\partial f}{\partial y}(x, y)dy  
+\end{gather*}
+
+This works out pretty well. When you bump x, what is the change in z. When you bump y, what is the change in z. The function that represents the total change in z is dependent on how much you bump x and y by. This then defines a tangent plane. You can bump x and y by any value, including zero, so this necessairly has to be a plane because it has to exist when either bump is zero, so it cannot be a line, because it must be able to move independently in two axes. It also doesn't make sense to be a line. How are you going to represent two dimensions of potential change in a one dimensional object.
+
 \subsubsection{Contour Maps}
+\label{sssec:Contour Maps}
 Before we leave 3D functions it's worth mentioning contour maps because they're cool.\\
 \begin{figure}[h]
     \centering 
     \includegraphics[width=0.5\textwidth]{contourmap}
     \caption{A contour map of some mound}
 \end{figure}\\
-The contour map of a 3d function is created by taking horizontal slices of the function at constant z values. This creates a neat way of visualizing these functions and will be useful for gradient fields later.
+The contour map of a 3D function is created by taking horizontal slices of the function at constant z values. This creates a neat way of visualizing these functions and will be useful for gradient fields later.
 
 \newpage
 
@@ -332,7 +345,7 @@ The directional derivative is
 
 Note the subscript of $\nabla$. Without it it's the gradient, as on the right, and with it it's the directional derivative.
 Similar to a partial derivative, this corresponds to a slice of the graph of a 3D function from some plane that isn't necessarily parallel to either axis x or y.
-That slice gives us some 2d function, where some step along that vector corresponds to a change in z, and some people write the directional vector as \Large $\frac{\partial f}{\partial \vec{v}}$ \normalsize to denote this.
+That slice gives us some 2D function, where some step along that vector corresponds to a change in z, and some people write the directional vector as \Large $\frac{\partial f}{\partial \vec{v}}$ \normalsize to denote this.
 
 That said, the line to remember is that the directional derivative is a partial derivative along some vector, instead of an axis. This is also results in giving you the slope of a graph when you walk along some vector, but you should be careful that when you are looking for the slope, you take a unit vector as the direction, otherwise you could get some multiple of the actual slope. 
 
@@ -354,22 +367,35 @@ A dot product equals $|a| |b| \cos(\theta)$. When the vectors lie on the same li
 
 Therefore, the best unit $\vec{v}$ will be on the same line as $\nabla f(a, b)$. It needs to be a unit vector, so take $\frac{\nabla f(a, b)}{|\nabla f(a, b)|}$ and you get a unit vector that returns the highest possible slope from a directional derivative
 
-The gradient itself, evaluated at $(a, b)$, normalized, will then be the vector that, when traveled along, results in the greatest increase in altitude, because it is the highest slope, as we got from maximizing the directional derivative
+The gradient itself, evaluated at $(a, b)$, normalized, will then be the vector that, when traveled along, results in the greatest increase in altitude, because it is the highest slope, as we got from maximizing the directional derivative. Some more intuition is in the section on vector fields.
 
 Pretty cool stuff. It's the backbone of the Gradient Descent Algorithm and I implemented it for a \externalLink{https://github.com/SAXTEN2011/LinearRegression/blob/master/index.js}{Linear Regression Model}
 
-\section{Vector Fields}
+\subsection{Vector Fields}
 
-Vector fields are pretty much what they sound like. It's a 2d plane of vectors, i.e. a function $f(x, y)$ that maps each point to some $\vec{v}$, which generalizes to some n-dimensional function mapping to some n-tuple
+Vector fields are pretty much what they sound like. It's a 2D plane of vectors, i.e. a function $f(x, y)$ that maps each point to some $\vec{v}$, which generalizes to some n-dimensional function mapping to some n-tuple
+
+The construction of one such vector field can be done using the gradient operator. Taking $\nabla f(x, y)$ gives you some vector at the point $(x, y)$, and if you find the vector at every $(x, y)$ you get a vector field that we call the gradient field, because it was generated by the gradient operator. 
+
+A neat thing to note is that the gradient field points in the direction of steepest ascent, because it is formed by the gradient. This is necessarily orthogonal to contour lines, as the steepest ascent is also the shortest path from one contour line to the next. If you zoom in super close on two nearby contour lines, they will eventually look like parallel lines. The shortest distance between parallel lines is an orthogonal path, so a gradient field will produce vectors orthogonal to a function's contour map.
 
 \begin{figure}[h]
     \centering 
-    \includegraphics[width=0.30\textwidth]{gradientfield}
-    \caption{A gradient field of $(\sin y, \sin x)$}
+    \includegraphics[width=0.75\textwidth]{orthogonalContour}
+    \caption{A gradient field of $z = \sin(x)\sin(y)$ against its contour field. The vectors all point towards the peaks, which means orthogonal to the contours! Also, if they were parallel to the contours, you find a way to not ascend at all!}
 \end{figure}
 
-The construction of such a vector field can be done using the gradient operator. Taking $\nabla f(x, y)$ gives you some vector at the point $(x, y)$, which over all $(x, y)$ gives you a vector field that we call the gradient field, because it was generated by the gradient operator. 
+Okay so what. I get that being able to visualize a gradient field helps give some intuition for what following a gradient would mean, but why would I ever really need this outside of that intuition? 
+The answer is on \externalLink{https://en.wikipedia.org/wiki/Vector_field\#Operations_on_vector_fields}{this wikipedia page} and I hope I take some notes on this. 
+Further research needed.
 
-A neat thing to quickly note is that the gradient field points in the direction of steepest ascent. This is orthogonal to contour lines, as the steepest ascent is also the shortest path from one contour line to the next. If you zoom in super close on two nearby contour lines, they will eventually look like parallel lines. The shortest distance between parallel lines is an orthogonal path, so a gradient field will produce vectors orthogonal to a function's contour map.
 
+\subsection{Tangent Planes to Level Surfaces}
+If we want to find a tangent plane to a 3D surface, say $x^2 + y^2 + z^2 = 3$, we need to find some normal vector to the surface that we can make a plane from. To find this normal vector, we will be a little sneaky. We can think of this 3D function a level surface of a 4D function. A level surface is a slice in one axis of a function, so a level surface of a function, say $z = x^2 + y^2$, is just where $x^2 + y^2$ equals some constant $c$, i.e everywhere on the function that has a $z$ value equal to $c$, also known as a \hyperref[sssec:Contour Maps]{contour} of the function.
+
+So we know that the gradient of a function points orthogonal to a contour line, because that is the fastest direction to the next contour line. Remember that the contour of a 3D function is some 2D curve, so the contour of a 4D curve is some 3D surface, and the gradient of a 4D function will result in a vector that is orthogonal to the 3D contour of the function. 
+
+We can exploit this by thinking of some 3D surface as actually being some contour of a 4D function. So maybe we have some function $w = x^2 + y^2 + z^2$, in the 4D space defined by the axes x, y, z, and w. If we set $w$ to $3$, i.e take a level surface at $w=3$, then we get the ellipsoid we led this section off with.
+
+So to find a tangent plane to $x^2 + y^2 + z^2 = 3$, we should consider $x^2 + y^2 + z^2 = w$, a function of one higher dimension, and take a gradient. This will give a 3 vector that is necessarily orthogonal to the ellipsoid because a 4D gradient will be orthogonal to its 3D contour. We can then use this gradient vector as the equation of a tangent plane $\vec{n}(p - p_0) = 0$, to find a tangent plane.
 \end{document}
