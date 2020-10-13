@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1602612484 "/home/aaron/Projects/Notes/Calc/overview.tex" "/home/aaron/Projects/Notes/Calc/overview.pdf" "overview" 1602614047
-  "/home/aaron/Projects/Notes/Calc/overview.aux" 1602612485 3682 45b8035c9e296a3d5288752d95f46097 ""
-  "/home/aaron/Projects/Notes/Calc/overview.tex" 1602614046 35349 bd506b4e49c1a1a53563925a38ca0606 ""
+["pdflatex"] 1602626835 "/home/aaron/Projects/Notes/Calc/overview.tex" "/home/aaron/Projects/Notes/Calc/overview.pdf" "overview" 1602626836
+  "/home/aaron/Projects/Notes/Calc/overview.aux" 1602626836 3682 45b8035c9e296a3d5288752d95f46097 ""
+  "/home/aaron/Projects/Notes/Calc/overview.tex" 1602626835 40043 b7790795c10b0c71344433c31a01f3ac ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1591545468 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1591545468 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1591545468 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -154,15 +154,15 @@
   "crossproduct.png" 1601515095 6965 134d73c92fd204cfc7e99db1e678bc9a ""
   "dotproduct.png" 1601507961 4810 296a9c3c86a9d9e4ee8a3cd402661760 ""
   "orthogonalContour.png" 1601687126 311114 82b6eff15d9b804b00a22f0a7f068120 ""
-  "overview.aux" 1602612485 3682 45b8035c9e296a3d5288752d95f46097 "pdflatex"
-  "overview.out" 1602612485 1083 c01a611b02a51e7e00fd1c21aa278274 "pdflatex"
-  "overview.tex" 1602614046 35349 bd506b4e49c1a1a53563925a38ca0606 ""
-  "overview.toc" 1602612485 1355 c479bce48434e0ef455efa76101ee4d6 "pdflatex"
+  "overview.aux" 1602626836 3682 45b8035c9e296a3d5288752d95f46097 "pdflatex"
+  "overview.out" 1602626836 1083 c01a611b02a51e7e00fd1c21aa278274 "pdflatex"
+  "overview.tex" 1602626835 40043 b7790795c10b0c71344433c31a01f3ac ""
+  "overview.toc" 1602626836 1355 c479bce48434e0ef455efa76101ee4d6 "pdflatex"
   (generated)
-  "overview.aux"
-  "/home/aaron/Projects/Notes/Calc/overview.log"
   "/home/aaron/Projects/Notes/Calc/overview.pdf"
   "overview.out"
-  "overview.log"
   "overview.toc"
+  "overview.aux"
   "overview.pdf"
+  "overview.log"
+  "/home/aaron/Projects/Notes/Calc/overview.log"
