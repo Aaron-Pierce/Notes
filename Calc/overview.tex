@@ -199,6 +199,45 @@ We call then call $dz$ the total differential, defined by
 
 This works out pretty well. When you bump x, what is the change in z. When you bump y, what is the change in z. The function that represents the total change in z is dependent on how much you bump x and y by. This then defines a tangent plane. You can bump x and y by any value, including zero, so this necessairly has to be a plane because it has to exist when either bump is zero, so it cannot be a line, because it must be able to move independently in two axes. It also doesn't make sense to be a line. How are you going to represent two dimensions of potential change in a one dimensional object.
 
+\subsubsection{Quadratic Approximation}
+While we're doing linear approximations, we may as well touch on quadratic approximation.
+
+Quadratic approximation approximates a 3d function as a paraboloid instead of a line. This is pretty useful, as it's a good idea to approximate a 3D function with a 3D figure, instead of 1D lines.
+
+This approximation is just an extension of a taylor polynomial. It looks like:
+\begin{displaymath}
+    Q_f(x) = f(x_0) + \nabla f(x_0)\cdot(x-x_0)+\frac{1}{2}(x-x_0)^T\mathbf{H}_f(x_0)(x-x_0)
+\end{displaymath}
+That looks pretty scary, let's break it down.
+
+First off, $f(x_0)$ is the value of the function at the point $x_0$. This is the y-intercept, so to speak, of the approximation, or the point at which we want to start the paraboloid.
+
+To that, we add $\nabla f(x_0)\cdot(x-x_0)$. This is a linear term. It's a vector of partial derivatives dotted with a vector of changes in position from the point $x_0$. This will build a tangent plane. We add the change in z with a nudge in x, and the change in z with a nudge in y, together, to get the total z change at any point away from $x_0$, which will be rendered as a plane.
+
+Finally, we add the scary quadratic term. The first thing we should break down is $\mathbf{H}_f(x_0)(x-x_0)$. $\mathbf{H}_f$ is the Hessian matrix of f, a symmetric and square matrix of second order partial derivatives.
+We evalute $\mathbf{H}_f(x_0)$ to be those partial derivatives at $x_0$. We then multiply this matrix by a column vector of the same changes we had earlier. In 3D this works out as follows:
+\begin{gather*}
+    \mathbf{H}_f(x_0) = \begin{bmatrix}
+        \frac{\partial f}{\partial xx} & \frac{\partial f}{\partial xy}\\
+        \frac{\partial f}{\partial yx} & \frac{\partial f}{\partial yy}\\
+    \end{bmatrix}\\
+    \mathbf{H}_f(x_0) \cdot (x - x_0) = \begin{bmatrix}
+        \frac{\partial f}{\partial xx}(x_0) \cdot (x - x_0) + \frac{\partial f}{\partial xy}(x_0) \cdot (y-y_0)\\
+        \frac{\partial f}{\partial yx}(x_0) \cdot (x - x_0) + \frac{\partial f}{\partial yy}(x_0) \cdot (y-y_0)\\ 
+    \end{bmatrix}\\
+    \frac{1}{2}(x-x_0)^T\mathbf{H}_f(x_0) \cdot (x - x_0) = 
+    [x-x_0, y-y_0] \cdot \begin{bmatrix}
+        \frac{\partial f}{\partial xx}(x_0) \cdot (x - x_0) + \frac{\partial f}{\partial xy}(x_0) \cdot (y-y_0)\\
+        \frac{\partial f}{\partial yx}(x_0) \cdot (x - x_0) + \frac{\partial f}{\partial yy}(x_0) \cdot (y-y_0)\\ 
+    \end{bmatrix}\\
+    = \frac{1}{2}\frac{\partial f}{\partial xx}(x_0) \cdot (x-x_0)^2 + \frac{1}{2}\frac{\partial f}{\partial yy}(x_0) \cdot (y-y_0)^2 + \frac{\partial f}{\partial xy}(x_0) \cdot (x-x_0)(y-y_0)
+\end{gather*}
+
+So what's this look like then? We have taylor polynomials along x and y, which makes sense. The third term is (kind of) a taylor polynomial along some combination of the x and y directions.
+
+This is sufficient for any direction between the axes. If you consider how this is being computed, it's whatever change in x, and whatever change in y, times the "slope" when you move along a partial derivative. They aren't independent, though, they're multiplied. If they were independent this would be another linear term. Because they are multiplied, this will create a parabolic term. (Consider when the x change is identical to the y change to see this, you end up squaring the change)
+
+This is all super shallow though, and I need to spend more time on it. Further research needed.
 \subsubsection{Contour Maps}
 \label{sssec:Contour Maps}
 Before we leave 3D functions it's worth mentioning contour maps because they're cool.\\
@@ -395,7 +434,61 @@ If we want to find a tangent plane to a 3D surface, say $x^2 + y^2 + z^2 = 3$, w
 
 So we know that the gradient of a function points orthogonal to a contour line, because that is the fastest direction to the next contour line. Remember that the contour of a 3D function is some 2D curve, so the contour of a 4D curve is some 3D surface, and the gradient of a 4D function will result in a vector that is orthogonal to the 3D contour of the function. 
 
-We can exploit this by thinking of some 3D surface as actually being some contour of a 4D function. So maybe we have some function $w = x^2 + y^2 + z^2$, in the 4D space defined by the axes x, y, z, and w. If we set $w$ to $3$, i.e take a level surface at $w=3$, then we get the ellipsoid we led this section off with.
+We can exploit this by thinking of some 3D surface as actually being some contour of a 4D function. So maybe we have some function $w = x^2 + y^2 + z^2$, in the 4D space defined by the axes x, y, z, and w. If we set $w$ to $3$, i.e take a level surface at $w=3$, then we get the sphere we led this section off with.
 
-So to find a tangent plane to $x^2 + y^2 + z^2 = 3$, we should consider $x^2 + y^2 + z^2 = w$, a function of one higher dimension, and take a gradient. This will give a 3 vector that is necessarily orthogonal to the ellipsoid because a 4D gradient will be orthogonal to its 3D contour. We can then use this gradient vector as the equation of a tangent plane $\vec{n}(p - p_0) = 0$, to find a tangent plane.
+So to find a tangent plane to $x^2 + y^2 + z^2 = 3$, we should consider $x^2 + y^2 + z^2 = w$, a function of one higher dimension, and take a gradient. This will give a 3 vector that is necessarily orthogonal to the sphere because a 4D gradient will be orthogonal to its 3D contour. We can then use this gradient vector as the equation of a tangent plane $\vec{n}(p - p_0) = 0$, to find a tangent plane.
+
+\section{Optimization}
+
+In order to optimize a function, we look for maxima and minima in the function. 
+
+In 2 dimensions this process is rather simple. You first find everywhere that the derivative is zero or undefined, so as to find points on the function where any change corresponds to increasing (or decreasing, so long as it happens in both directions) the value of the function at the point. You then check the second derivative of the function to see if the function is concave up (corresponding to a minima) or concave down (corresponding to a maxima).
+
+In more than 2 dimensions we have the same general process. First we find where all partial derivatives are zero ($\nabla F(x, y) = \vec{0}$). If any of these partial derivatives weren't zero, then there would be a direction you could nudge the function in to increase or decrease the value of the function, thus your point is not an extrema. Put another way, the gradient points in the direction of steepest ascent, so if the gradient at a point is zero there is no direction that ascends, so you are at an extrema.
+It was surprising to me that the gradient being zero was sufficient. It seemed reasonable that your derivative in the X and Y could be zero but between those axes it wouldn't be. This is wrong though. If you take a directional derivative you dot the direction vector with the gradient. So if the gradient is zero, so are all of the directional derivatives. 
+(Putting it this way sounds like it would only work at maxima. To see why it works at minima, consider how you calculate the gradient. If you are at a minima the partial derivatives must be zero, because tangent lines are horizontal. A shallower way to consider this is to realize that any direction will correspond to steepest ascent at a minima, so the gradient either doesn't choose, or chooses all of them, which results in no change, whichever seems more reasonable to you.) 
+
+Once we find all of the critical points, we need to decide if these points are maxima, minima, or saddle points. To find this, we need a second derivative test.
+
+To find the second derivative of a multidimensional function, let's find the derivative of the gradient. Each term will need to be derived with respect to every other element, so the gradient becomes a matrix,
+\begin{align*}
+    \nabla f &= \begin{bmatrix}
+        \frac{\partial f}{\partial x}\\
+        \frac{\partial f}{\partial y}
+    \end{bmatrix}
+    \xrightarrow{Becomes}
+    D f = \begin{bmatrix}
+        \frac{\partial f}{\partial xx} & \frac{\partial f}{\partial xy}\\
+        \frac{\partial f}{\partial yx} & \frac{\partial f}{\partial yy}\\  
+    \end{bmatrix}
+\end{align*}
+
+This matrix is called a Hessian Matrix, a symmetric matrix of the second order partial derivatives of a function. This is the equivalent of a second derivative of a multivariable function, and we can use it for a sense of concavity.
+
+First, if this is a saddle point, that means that two directions "disagree" in concavity. If either of $\frac{\partial f}{\partial x}$ or $\frac{\partial f}{\partial y}$ are zero, there's a saddle point. If they're both the same sign, they "agree" in concavity, and could well be a max or a min.
+To encode this "agreement" we can multiply xx and yy second partial derivatives. If this number is positive, then both numbers were either positive or negative, so they agree. If the product is negative, one is positive and one is negative, and if the product is zero, then one of the directions was zero, and you have a saddle point.
+
+If a critical point in 3D is a max or a min, the max/min will look like a paraboloid. If we find a taylor approximation of the 3D surface at a critical point, and the approximation looks like a paraboloid, then we know if it is indeed a max or a min, and its sign will distinguish between them.
+
+We aren't really intersted in a very accurate approximation, we really just want to try to fit a paraboloid to it and hope that it works. Here's how we do this.
+
+Firstly, we can linearly approximate the function. At any given point, the derivative with respect to some axis times the change in that axis, will give a tangent line. In 3D we want a tangent plane, we dot the gradient with a vector formed by $(x, y, z) - p_0$, where $p_0$ is the point at which you are taking the derivative and $(x, y, z)$ represents some new position along each axis
+
+This information is encoded in the first derivative, but this only gives us where the function increases and decreases. At a critical point, this is zero, because they necessarily have horizontal tangent planes.
+
+So we look next at the concavity of the function, encoded by the second derivative. When you bump x, it changes the function's rate of change in the x. If you multiply that rate of change by the change again, you get the change in z with respect to that bump in x. So the second derivative times the change (which is now a first derivative so to speak) times the change again (which is now a change in the function's value) will result in a quadratic approximation. You square the change to get some increase. To represent this, we hit the hessian matrix on both sides with the change vector. We've done lots of talking; here are some nice conscise symbols.
+
+\begin{gather*}
+    \text{Let } a = (x_0, y_0)\\
+    f(x, y) \approx f(p_0) + \nabla f(p_0)(a - p_0) + (a - p_0) \cdot \mathbf{H_f}(p_0)(a - p_0)
+\end{gather*}
+
+But we only want to take this approximation at critical points, so $\nabla f$ is zero, and the linear term goes away!
+
+So now our approximation is simply $f(p_0) + (a - p_0) \cdot \mathbf{H_f}(p_0)(a - p_0)$
+
+$f(p_0)$ is the height of the function at our critical point. If the second term is always positive, then we only add height when we move away from the point, so the critical point is a min, and if its a max then the second term must always be negative.
+
+So now we can determine whether the function is a max/min by just looking at the sign of $(a - p_0) \cdot \mathbf{H_f}(p_0)(a - p_0)$, which is very nice!
+
 \end{document}
