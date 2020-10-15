@@ -202,7 +202,7 @@ This works out pretty well. When you bump x, what is the change in z. When you b
 \subsubsection{Quadratic Approximation}
 While we're doing linear approximations, we may as well touch on quadratic approximation.
 
-Quadratic approximation approximates a 3d function as a paraboloid instead of a line. This is pretty useful, as it's a good idea to approximate a 3D function with a 3D figure, instead of 1D lines.
+Quadratic approximation approximates a 3D function as a paraboloid instead of a line. This is pretty useful, as it's a good idea to approximate a 3D function with a 3D figure, instead of 1D lines.
 
 This approximation is just an extension of a taylor polynomial. It looks like:
 \begin{displaymath}
@@ -214,7 +214,7 @@ First off, $f(x_0)$ is the value of the function at the point $x_0$. This is the
 
 To that, we add $\nabla f(x_0)\cdot(x-x_0)$. This is a linear term. It's a vector of partial derivatives dotted with a vector of changes in position from the point $x_0$. This will build a tangent plane. We add the change in z with a nudge in x, and the change in z with a nudge in y, together, to get the total z change at any point away from $x_0$, which will be rendered as a plane.
 
-Finally, we add the scary quadratic term. The first thing we should break down is $\mathbf{H}_f(x_0)(x-x_0)$. $\mathbf{H}_f$ is the Hessian matrix of f, a symmetric and square matrix of second order partial derivatives.
+Finally, we add the scary quadratic term. The first thing we should break down is $\mathbf{H}_f(x_0)(x-x_0)$. $\mathbf{H}_f$ is the Hessian matrix of $f$, a symmetric and square matrix of second order partial derivatives.
 We evalute $\mathbf{H}_f(x_0)$ to be those partial derivatives at $x_0$. We then multiply this matrix by a column vector of the same changes we had earlier. In 3D this works out as follows:
 \begin{gather*}
     \mathbf{H}_f(x_0) = \begin{bmatrix}
@@ -258,7 +258,7 @@ The multidimension chain rule is a weird one. I couldn't ever find a satisfactor
 It helped to first consider the single dimension chain rule.
 
 \begin{gather*}
-    \text{For a function} f(g(x)), \text{Let} u = g(x) \\
+    \text{For a function} f(g(x)), \text{Let } u = g(x) \\
     \frac{d}{dx} f(g(x)) = \frac{d}{dx} f(u) = f^\prime (u)\frac{du}{dx}\\
     \frac{du}{dx} = g^\prime (x)\\
     \frac{d}{dx} f(g(x)) = f^\prime (g(x)) g^\prime (x)
@@ -271,11 +271,11 @@ This is still pretty shallow for me. Seems more like a trick of notation than so
     = x^2 + 2xdx + {dx}^2\\
 \end{gather*}
 
-So when we nudge the function by $dx$, we get $x^2 + 2xdx + {dx}^2$. Before the nudge, the function was $x^2$, so the nudge changes the function by $2xdx + dx^2$. As $dx \to 0$, the value of $dx^2$ becomes very small and much less significant than $2xdx$. So when we nudge the function, its return value meaningfully changes by twice the value of the function at x, times the tiny nudge we made in the x, meaning that $f^\prime (x) = 2x\ dx$. This is where the power rule comes from.
+So when we nudge the input of the function by $dx$, we get $x^2 + 2xdx + {dx}^2$ as the height of the function at $x + dx$. Before the nudge, the function was $x^2$, so the nudge changes the function by adding $2xdx + dx^2$. As $dx \to 0$, the value of $dx^2$ becomes very small and much less significant than $2xdx$. So when we nudge the function, its return value meaningfully changes by twice the value of the function at x, times the tiny nudge we made in the x, meaning that $f^\prime (x) = 2x\ dx$. This is where the power rule comes from.
 
 When we nudge $f(g(x))$, we first nudge $g(x)$ by something, and the new value then becomes the input of $f$.
 
-Let's ignore $g(x)$ for a second. So long as $g(x)$ is differentiable, then a small change in x would feel no different than if we nudged $g(x)$ as far as $f$ is concerned. 
+Let's ignore $g(x)$ for a second. So long as $g(x)$ is differentiable, then a small change in x would feel no different than if we nudged $g(x)$, as far as $f$ is concerned. 
 Let's call $g(x)$ $u$ instead. A small nudge in $u$, du, corresponds to a change of $f^\prime (u)\ du$. The nudge du is itself the change in $g$ when you change x, that nudge is $g^\prime (x)\ dx$, which gives us the chain rule
 
 \begin{gather*}
@@ -303,7 +303,7 @@ Now, if you're just looking at this, you can just plug the functions in.
 So you dont actually \emph{need} the chain rule. You could plug all of the functions in and take a partial derivative as normal.
 However, if your functions get complex, say $f(u, v) = u^2sin^2(v)$ and $u$ and $v$ are themselves complicated, the partial derivatives get annoying really fast, so having a way to pre-compute this with a formula would be nice.
 
-Let's take that example. for $f(sin(x), cos(y))$ what happens when we nudge x? Let's again call sin(x) u.
+Let's take that example. For $f(sin(x), cos(y))$ what happens when we nudge x? Let's again call sin(x) u.
 
 \begin{gather*}
     f(u, \cos(y)) = u^2\sin^2(\cos(y))\\
@@ -442,6 +442,7 @@ So to find a tangent plane to $x^2 + y^2 + z^2 = 3$, we should consider $x^2 + y
 
 In optimizing a function, we look for maximum and minimum values of the function. This is extremely useful across a wide range of use cases, the most prominent of which is probably machine learning.
 
+\subsection{Finding Local Extrema}
 In 2 dimensions this process is rather simple. You first find everywhere that the derivative is zero or undefined, so as to find points on the function where any change corresponds to increasing (or decreasing, so long as it happens in both directions) the value of the function at the point. You then check the second derivative of the function to see if the function is concave up (corresponding to a minima) or concave down (corresponding to a maxima).
 
 In more than 2 dimensions we have the same general process. First we find where all partial derivatives are zero ($\nabla F(x, y) = \vec{0}$). If any of these partial derivatives weren't zero, then there would be a direction you could nudge the function in to increase or decrease the value of the function, thus your point is not an extrema. 
@@ -552,5 +553,143 @@ We make these changes because it puts the statement exactly in the form of the d
 We can finally determine whether this is actually a max or a min by looking at either of $f_{xx}$ or $f_{yy}$. We know with absolute certainty that this point is either a max or a min,
 and as a result know that the approximation at this critical point is a paraboloid. A paraboloid can't have one concavity in one axis and a different concavity in another,
 so looking at either second order partial derivative will tell us directly if the paraboloid is concave up, or concave down, and we can then make the final call whether a critical point is a max or a min.
- 
+
+\textbf{I need to rewrite this section. I hope that you aren't reading this, if you are not me.
+I also need to write a recap of how to \textbf{actually find the extrema}}
+\subsection{Finding Absolute Extrema}
+When we look at critical points and second derivatives we are finding local extrema, places on the function where there are no bumps to your input you can make to gain or lose altitude.
+
+If we want to look for the highest point anywhere on the curve, the absolute maximum (or minimum), we need to do some thinking first.
+For example, what's the absolute maximum of $f(x) = sin(x)$? Well there are a lot of them. Infinitely many of them, actually.
+What if we wanted to know the absolute maximum and absolute minimum values of $f(x) = \frac{1}{x}$? This is even less clear.
+Is infinity a value? Is that the absolute max and negative infinity is the absolute min? If so, at what x value do those extrema happen at?
+It's not zero, but any value that's not zero can always get a little closer to zero, and increase the altitude of the function, and therefore can't be an extrema.
+
+It would really help if we just said that we want to find the absolute extrema on some closed interval.
+When we consider the absolute extrema in some interval, there are two places we can find these extrema.
+First, the critical points will give us local maxes and mins. 
+These maxes and mins may well have the biggest or smallest height of the function at their points, but we aren't guaranteed this.
+If you chop the function off at the end of some interval, you could chop it off at some really big value that would have kept getting bigger outside of the interval.
+For example, chopping $x^2$ at any value outside of zero will put absolute maxes at the endpoints of the interval. 
+
+So to find the absolute extrema of a function, we take all of the critical points, and all of the endpoints, and find the biggest and smallest values among them.
+We actually don't even need to check whether the critical points are actually local maxes or mins. We can just find all of their values and take the biggest and smallest.
+We might as well just evalute the function at the critical points instead of dealing with second derivative tests.
+We are, after all, looking for the biggest and smallest heights of the function.
+Who cares if that happens at a saddle point or not.
+
+In 2D evaluating a function at the endpoints of an interval is super easy. If the interval is $[0, 1]$, then you just take $f(0)$ and $f(1)$.
+In 3D, life isn't as easy\footnote{Is it ever?}.
+We need to slice the surface along some direction or curve or something.
+So maybe the interval we care about is the unit circle (points with distance 1 from the origin), or a square from $(0, 0)$ to $(1, 1)$.
+In each of these cases, we need to take some kind of slice of the function, which will give us a 2D function and then find the absolute extrema on that 2D function!
+So there you have to find the critical points of the 2D slice, evaluate it at its endpoints, and it's a real pain.
+This all sounds like I'm leading up to some nice trick. I'm not. I hope there's a better solution out there though.
+Further research needed.
+
+\textbf{I also need to re-write this section. Again hope that nobody that isn't me reads this.}
+
+\subsection{Constrained Optimization}
+This is the form of optimization that makes up all the fun word problems.
+You're always either building a box with maximal volume and a fixed amount of cardboard,
+or the biggest pen for your cows with a fixed amount of fence.
+
+Whatever the random problem the professor came up with is, you need to find the optimal inputs given some constraint.
+The textbooks, in an effort to make you work as hard as possible, call the function you want to optimize f, and the constraint function g.
+This was frustratingly abstract to me. The idea is pretty obvious, but is obscured by notation.
+
+What was strangest to me was the notion of a constraint function.
+The easiest example of a constraint function is representing how much cardboard you have to build a box.
+If L, W, and H, are the length, width, and height of the box, then your constraint function might look like
+\begin{gather*}
+    g(L, W, H) = 2LW + 4WH
+\end{gather*}
+Which represents twice the cardboard to make the base, and 4 times the cardboard to make a wall.
+In other words, the amount of cardboard it takes to build you box.
+So why can't you just say that you only have 12 square feet of cardboard and not bother with this function?
+It's actually a useful construction.
+
+If you take a level surface of $g$ at 12, that represents having only 12 square feet of cardboard.
+If you plug in your L, W, and H, to $g$, it tells you if you are within the constraint.
+If you use 5000 square feet of cardboard, that doesn't equal 12, and your constrait function will be a contradiction. 
+Put another way, if you find some optimal point on $f$, and that point isn't on the level curve of $g$, then you can't use that point.
+This lets us reduce our problem to finding the absolute maximum value on $f$, constrained to points on $g$.
+
+But this isn't so clear. We take a level surface at $g = 12$ (12 is just some random value that I'm taking for an example),
+this level surface is 2D. That can't really intersect with $f$, which is a 3D surface.
+It can, however, intersect with contour lines of $f$.
+We could also just say that we care where the x and y values of points on f are also points on g,
+or even say that we extend the level surface of g to be a cylinder so that we can find meaningful intersections,
+but thinking about it as a contour map is a really useful perspective. 
+
+When a level surface of $g$ (which I am going to just call $g$ from here on out) crosses a contour line of f we can figure out a couple of things.
+First, we know that the point at which they intersect is a candidate for the optimal point.
+This is because the point at which they intersect is necessarily on f and g, and we are trying to find the optimal point that satisfies exactly this fact.
+However, we can also immediately disqualify this point!
+If $g$ \emph{crosses} a contour line of $f$ it must be moving to another contour line somewhere else.
+This value \emph{has} to be bigger or smaller than the point at which the lines crossed, because if the new value wasn't different than the value at which we crossed the contour line, then it would have to be on the contour line.
+But it isn't on the contour line because we crossed the contour line, so we're moving to bigger and better places if we follow $g$, so we keep following $g$.
+When do we stop then? If $g$ just barely touches a contour of $f$, i.e $g$ is tangent to a contour of $f$, then $g$ is always less than (or greater than) the value of that contour line, except when $g$ touches that value, in which case it is a local optima!
+That's huge news! When $g$ is tangent to a contour of $f$, we find a local optima. So let's just find all of those local optima, evaluate the function at all of the points, and pick out the best value.
+
+We can find these by considering what it means for two curves to be tangent to each other. 
+The tangent line of the curves must be parallel, and the curves must share a point.
+If they don't share a point, they can't be tangent, and if their tangent lines at the point that they share aren't parallel, then you could follow the tangent line to get inside of the other curve.
+The curves being tangent means that you cannot do that. 
+Put another way, the tangent line is a linear approximation. 
+If the linear approximation of both functions are parallel, the functions don't cross over into each other. 
+I am having a difficult time justifying this fact and \textbf{need to rewrite it}.
+
+So where are tangent lines to contour maps parallel? 
+Well first off, how do we even get tangent lines to contour maps?
+The gradient will spit these out, as we talked about earlier on in the notes.
+So now we just need to find where the gradient vectors of $f$ and $g$ (the function, not the level surface at 12), are parallel.
+Vectors are parallel if one is a multiple of another, so we can express this as
+\begin{gather*}
+    \nabla f(x, y) = \lambda \nabla g(x, y)
+\end{gather*}
+Where solutions are the critical points of the function.
+This might not be enough information.
+Frequently we can solve for lambda, but not x or y.
+In order to solve for x or y, we can also go back to our constraint function, and consider the system
+\begin{displaymath}
+    \begin{cases}
+        \nabla f(x, y) = \lambda \nabla g(x, y) \\
+        g(x, y) = 12
+    \end{cases} 
+\end{displaymath}
+It's important that this system also has the constraint function in it, because it constrains solutions to only those that satisfy g.
+If you only looked at $\nabla f(x, y) = \lambda \nabla g(x, y)$, you could find solutions well outside the constraint.
+Because $g$ equals some constant, we can find x or y in terms of lambda, plug the lambda value into $g$, and solve for the other variable, which will be a definite value.
+Then we have cocnrete values for x and y, evaluate the function at that point, and find the maximum and minimum values between those to find our absolute extreme values.
+
+\subsection{Constrained Optimization With Two Constraints}
+The process is almost exactly the same, except that it takes the following form:
+\begin{gather*}
+    \nabla f(x, y) = \lambda \nabla g(x, y) + \mu \nabla h(x, y)
+\end{gather*}
+Where $g$ and $h$ are constraint functions. My big question was "why addition?"
+
+Wikipedia's article says to consider the constraint functions to be two lines.
+The intersection of those lines will be the only point that satisfies both constraints, and will thus be the max.
+However, these lines can't share a tangent line to each other (they wouldn't intersect), so it can't be possible that contours f, g, and h, all share a tangent line, which is what I initially thought multiple constraint solving would look like.
+In this case, the gradient of f needs to be some linear combination of the gradient of the other two constraints, and multiple constraints generalize in the same way.
+
+Further research needed as to why this makes sense.
+
+\section{Multiple Integrals}
+In 2D we can find areas under curves with integrals, and that's super useful!
+For example, I used it in \externalLink{https://github.com/SAXTEN2011/GyroLib2020}{GyroLib}.
+It's really useful to be able to climb up the position/velocity/acceleration tower, in the same way that it's useful to go down it.
+
+In 3D we look for volumes under surfaces, instead of areas under 2D curves.
+
+From 2D, we added a whole bunch of rectangles of height $f(x)$ and width $dx$. 
+In 3D, we use rectangular prisms of height $f(x, y)$, length $dx$ and width $dy$.
+
+Another nice way to do this is to add up slices of the function. 
+We can fix some y value to $y_0$ and take the corresponding slice of the function.
+Integrating this 2D function gives us the area of that slice.
+If we now consider $y_0$ to be the variable $y$, we can integrate that integral over y.
+This adds up the areas of all of the slices of the functions, and gives us a volume.
 \end{document}

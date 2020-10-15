@@ -13,3 +13,8 @@
 \contentsline {subsection}{\numberline {3.3}Vector Fields}{16}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Tangent Planes to Level Surfaces}{18}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Optimization}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Finding Local Extrema}{18}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Finding Absolute Extrema}{23}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Constrained Optimization}{25}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Constrained Optimization With Two Constraints}{27}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Multiple Integrals}{28}{section.5}%
