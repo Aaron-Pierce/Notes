@@ -177,13 +177,13 @@ One of the uses of the derivative in 2 dimensions was to approximate a function.
 
 To find a tangent line in $\textbf{R}^2$, we used a point and a slope $y - y_0 = f^\prime (x)(x-x_0)$. In $\textbf{R}^3$, we need two slopes, so 
 \begin{displaymath}
-    z - z_0 = \frac{\partial f}{\partial x}(x - x_0) + \frac{\partial f}{\partial y}(y - y_0)
+    z - z_0 = \frac{\partial f}{\partial x}(x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0)(y - y_0)
 \end{displaymath}
 represents the tangent plane.
 
 A little manipulation of that later and we get a way to linearize the function, which is pretty similar
 \begin{displaymath}
-    f(x, y) \approx f(a, b) + \frac{\partial f(a, b)}{\partial x}(x - a) + \frac{\partial f(a, b)}{\partial y}(y - b)
+    f(x, y) \approx f(a, b) + \frac{\partial f}{\partial x}(a, b)(x - a) + \frac{\partial f}{\partial y}(a, b)(y - b)
 \end{displaymath}
 
 Where $(a, b)$ is the point where you start, and $(x, y)$ is where you end up. Which amounts to starting at $(a, b)$, and walking a bit in the x multiplied by $\frac{\partial f}{\partial x}$, which is the slope (rise / run) in the x times the run, so you get the z that you should go up by, and you do the same in the y axis
@@ -197,7 +197,7 @@ We call then call $dz$ the total differential, defined by
     dz = \frac{\partial f}{\partial x}(x, y)dx + \frac{\partial f}{\partial y}(x, y)dy  
 \end{gather*}
 
-This works out pretty well. When you bump x, what is the change in z. When you bump y, what is the change in z. The function that represents the total change in z is dependent on how much you bump x and y by. This then defines a tangent plane. You can bump x and y by any value, including zero, so this necessairly has to be a plane because it has to exist when either bump is zero, so it cannot be a line, because it must be able to move independently in two axes. It also doesn't make sense to be a line. How are you going to represent two dimensions of potential change in a one dimensional object.
+This works out pretty well. When you bump x, what is the change in z. When you bump y, what is the change in z. The function that represents the total change in z is dependent on how much you bump x and y by. This then defines a tangent plane. You can bump x and y by any value, including zero, so this necessairly has to be a plane because it has to exist when either bump is zero, so it cannot be a line because it must be able to move independently in two axes. It also doesn't make sense to be a line. How are you going to represent two dimensions of potential change in a one dimensional object.
 
 \subsubsection{Quadratic Approximation}
 While we're doing linear approximations, we may as well touch on quadratic approximation.
@@ -443,11 +443,11 @@ So to find a tangent plane to $x^2 + y^2 + z^2 = 3$, we should consider $x^2 + y
 In optimizing a function, we look for maximum and minimum values of the function. This is extremely useful across a wide range of use cases, the most prominent of which is probably machine learning.
 
 \subsection{Finding Local Extrema}
-In 2 dimensions this process is rather simple. You first find everywhere that the derivative is zero or undefined, so as to find points on the function where any change corresponds to increasing (or decreasing, so long as it happens in both directions) the value of the function at the point. You then check the second derivative of the function to see if the function is concave up (corresponding to a minima) or concave down (corresponding to a maxima).
+In 2 dimensions this process is rather simple. You first find everywhere that the derivative is zero or undefined, so as to find points on the function where there is no direction you can move in to make your position better (whether better means a higher or lower altitude is up to you). You then check the second derivative of the function to see if the function is concave up (corresponding to a minima) or concave down (corresponding to a maxima).
 
 In more than 2 dimensions we have the same general process. First we find where all partial derivatives are zero ($\nabla F(x, y) = \vec{0}$). If any of these partial derivatives weren't zero, then there would be a direction you could nudge the function in to increase or decrease the value of the function, thus your point is not an extrema. 
 Put another way, the gradient points in the direction of steepest ascent, so if the gradient at a point is zero there is no direction that ascends, so you are at an extrema.
-(Putting it this way sounds like it would only work at maxima. To see why it works at minima, consider how you calculate the gradient. If you are at a minima the partial derivatives must be zero, because tangent lines are horizontal. A shallower way to consider this is to realize that any direction will correspond to steepest ascent at a minima, so the gradient either doesn't choose, or chooses all of them, which results in no change, whichever seems more reasonable to you.) 
+(Putting it this way sounds like it would only work at maxima. You can also get to minima by walking in the opposite direction to maxima, because the opposite direction of steepest ascent will be the steepest descent) 
 It was surprising to me that the gradient being zero was sufficient. It seemed reasonable that your derivative in the X and Y could be zero but between those axes it wouldn't be. This is wrong though. If you take a directional derivative you dot the direction vector with the gradient. So if the gradient is zero, so are all of the directional derivatives. 
 
 Once we find all of the critical points, we need to decide if these points are maxima, minima, or saddle points. To find this, we need a second derivative test.
@@ -471,21 +471,26 @@ This will be very useful shortly.
 
 If a critical point in 3D is a max or a min, the max/min will look like a paraboloid. If we find a taylor approximation of the 3D surface at a critical point, and the approximation looks like a paraboloid, then we know if it is indeed a max or a min, and its sign (whether the approximation is always positive or always negative) will distinguish between them.
 
-We aren't really intersted in a very accurate approximation, though, we just want to try to fit a paraboloid to it and hope that it works. If it does work we've definitely got a max/min, and if it doesn't we almost certainly don't. Here's how we do this.
+We aren't really intersted in an accurate taylor approximation, we just want to try to fit a paraboloid to the surface and hope that it works. If it does work we've definitely got a max/min, and if it doesn't we almost certainly don't. Here's how we find this limited taylor approximation.
 
-Firstly, we can linearly approximate the function. At any given point, the derivative with respect to some axis times the change in that axis will give a tangent line. In 3D we want a tangent plane, we dot the gradient with a vector formed by $(x, y, z) - p_0$, where $p_0$ is the point at which you are taking the derivative and $(x, y, z)$ represents some new position along each axis
+Firstly, we can linearly approximate the function. At any given point, the derivative with respect to some axis times the change in that axis will give a tangent line. In 3D we want a tangent plane instead of a line, so we dot the gradient with a vector formed by $(x, y, z) - p_0$, where $p_0$ is the point at which you are taking the derivative and $(x, y, z)$ represents some new position along each axis.
 
-This information is encoded in the first derivative, but this only gives us where the function increases and decreases. At a critical point this must zero, because critical points necessarily have horizontal tangent planes.
+This spits out a plane, which tells us where the function is increasing and decreasing. At a critical point this must zero, because critical points necessarily have horizontal tangent planes, no increase or decrease as you nudge your coordinates.
+We are doing this approximation specifically at critical points, so we can entirely ignore the linear part because of this.
 
-So we look next at the concavity of the function, encoded by the second derivative. When you bump x, it changes the function's rate of change in the x. 
-If you multiply that new rate of change by the bump in x again, you get the change in z with respect to that bump in x. So the second derivative times the change (which is now a first derivative so to speak) times the change again (which is now a change in the function's value) will result in a quadratic approximation (quadratic because uou square the change to get some increase). 
-To represent this in 3D, we hit the hessian matrix on both sides with the change vector. We've done lots of talking; here are some nice conscise symbols.
+So we look next at the concavity of the function, encoded by the second derivative. When you bump x, it changes the function's rate of change in the x proportional to it's second derivative.
+If you take the new rate of change that the bump results in, and multiply that new rate of change by that bump again, you get the change in z caused by the second derivative.
+It helps to think of this in units. If you are given acceleration, you need to multiply it by the time once to get a velocity, and again to get a position.
+Meters per seconds squared, times seconds times seconds, gives you meters. In the same way, a second derivatives times a dx times a dx gives you a dz!
+
+To represent this in 3D, we hit the hessian matrix on both sides with the change vector (in 2D we just multiply $f^{\prime \prime}$ by $(x - x_0)^2$). We've done lots of talking; here are some nice conscise symbols.
 
 \begin{gather*}
     \text{Let } a = (x_0, y_0)\\
     f(x, y) \approx f(p_0) + \nabla f(p_0)(a - p_0) + \frac{1}{2}(a - p_0) \cdot \mathbf{H_f}(p_0)(a - p_0)
 \end{gather*}
-(the $\frac{1}{2}$ ensures that the derivative of the approximation is not twice the derivative of the actual function)
+(the $\frac{1}{2}$ ensures that the derivative of the approximation is not twice the derivative of the actual function. 
+This doesn't really matter in our case right now because it doesn't change the sign.)
 
 But we only want to take this approximation at critical points, so $\nabla f$ is zero, and the linear term goes away!
 
@@ -507,12 +512,12 @@ That's pretty long. Because this is a quadratic form (i.e the product of two sum
 \begin{gather*}
     ax^2 + 2bxy + cy^2
 \end{gather*}
-Where $a = \frac{1}{2}f_{xx}(x_0, y_0)(x - x_0)^2$, and b and c follow in the same way.
+Where $a = \frac{1}{2}f_{xx}(x_0, y_0)$, $x = (x - x_0)$ and everything else follows in the same way.
 (I think this is the first time I've used the $f_{xx}$ notation in these notes. This is equivalent to $\frac{\partial f}{\partial xx}$).
 
-Maybe the more concise way to write it is that x, y, and z in that equation are $(x - x_0)$, but for their respective letter. With all of that out of the way, the crucial question is: given a, b, and c, when is this paraboloid always positive or always negative?
-
-Note that we want to know where the \textit{height} of the quadratic form is positive, not the slope or anything like that. We want to know this because we add the height of this to our critical point. If that height is always of the same sign, we can discern maxes and mins.
+Note that we want to know where the \textit{evaluation} of the quadratic form is positive, not the slope or anything like that. 
+We want to know this because we add the result of this to the height at our critical point. 
+If the value of the approximation is always of the same sign, we can discern maxes and mins.
 
 If a parabola (or paraboloid, but it's easier to consider 2D right now) is always positive, or always negative, it never crosses the x axis. A root of a function is definitionally when it crosses the x axis, so if this parabola has no solutions (or roots) then we know it is always the same sign and is definitely a min or a max.
 
@@ -535,9 +540,9 @@ Alright, let's find these roots then. Enter the old quadratic equation.
 
 This equation returns x values of solutions. If this value is not real, there aren't any solutions. This formula will never be real if $b^2 - ac$ is negative, because the square root of a negative is imaginary.
 
-The obvious solution here is when $y_0$ is zero. This is problematic because it smooths over other solutions. If there was also a root at x=1, it would get multiplied by zero, so the test will be inconclusive.
+The obvious problem here is when $y_0$ is zero. This is problematic because it smooths over other solutions. If there was also a root at, say, $x=1$, it would get multiplied by zero, so the test will be inconclusive.
 
-If the test is conclusive, $y_0$ isn't 0, we return back to needing to know when $b^2 - ac < 0$, in order to find when our paraboloid has no real solutions. We're pretty abstracted now, so let's fill back in a, b, and c with their actual values.
+If the test is conclusive (i.e. $y_0$ isn't 0), we return back to needing to know when $b^2 - ac < 0$, in order to find when our paraboloid has no real solutions. We're pretty abstracted now, so let's fill back in a, b, and c with their actual values.
 \begin{gather*}
     b^2 - ac = (\frac{1}{2}f_{xy})^2 - (\frac{1}{2}f_{xx} \cdot \frac{1}{2}f_{yy})\\
     = \frac{1}{4}f_{xy}^2 - \frac{1}{4}f_{xx}f_{yy}\\
@@ -554,8 +559,32 @@ We can finally determine whether this is actually a max or a min by looking at e
 and as a result know that the approximation at this critical point is a paraboloid. A paraboloid can't have one concavity in one axis and a different concavity in another,
 so looking at either second order partial derivative will tell us directly if the paraboloid is concave up, or concave down, and we can then make the final call whether a critical point is a max or a min.
 
-\textbf{I need to rewrite this section. I hope that you aren't reading this, if you are not me.
-I also need to write a recap of how to \textbf{actually find the extrema}}
+Okay, okay, that was super long. Let's recap.
+We have a function and want to know where the local maxes and mins are.
+These will happen at critical points ($\nabla f = \vec{0}$), but we need to figure out if each critical point is a max or a min.
+To find out if it's a max or a min, we will try to approximate the function with a paraboloid.
+If that paraboloid is always positively valued we have a min, and oppositely for a max.
+That paraboloid can't always be positively valued if it crosses the xy plane.
+We can find where that paraboloid crosses the xy plane by finding the solutions to the paraboloid.
+We can find these solutions from the quadratic formula, and because the quadratic formula takes a square root of $f_{xy}^2 - f_{xx}f_{yy}$, we can force the paraboloid to not have solutions if that value is negative.
+That value just so happens to be the \textbf{negative} determinant of the hessian matrix, so the opposite sign of the determinant of the hessian matrix is also the sign of the bit under the square root of the quadratic equation.
+If the determinant is positive, then the bit under the square root is negative.
+Negative square roots aren't real, so the paraboloid has no solutions, therefore never crosses the xy plane, therefore is always positively valued (or always be negatively valued), and we must really have a min (or a max)!
+
+The textbook will not write all of that out, and will just give the following rule:
+\begin{enumerate}
+    \item If the determinant of the hessian is positive, then the sign of $f_{xx}$ tells you whether it's a max or a min.
+    \item If the determinant is negative, then we have a saddle point (because there's a crit point but it isn't a max or a min)
+    \item If the determinant is zero, the paraboloid might have solutions, who knows, so the test is inconclusive.
+\end{enumerate}
+To elaborate on point 1 a bit, if the determinant of the hessian is positive, the paraboloid has no solutions. 
+If the paraboloid has no solutions, then it never switches sign. 
+Because it never switches sign no matter what, all points near the paraboloid have the same concavity.
+If they didn't, the approximation wouldn't have worked out to have no solutions.
+We fit this paraboloid based on the partial derivatives, so we knew from the start it would follow their concavity, but we didn't know if everything else between them agreed, or even if they agreed themselves.
+When the paraboloid has no solutions, every direction from the critical point has the same concavity, so we can just pick any one of those directions to figure out if we're at a min or a max.
+For some reason conventions says to pick xx, but you could just as easily pick yy.
+No matter which direction you pick, a positive value means a min, and a negative value means a max.
 \subsection{Finding Absolute Extrema}
 When we look at critical points and second derivatives we are finding local extrema, places on the function where there are no bumps to your input you can make to gain or lose altitude.
 
@@ -569,10 +598,12 @@ It would really help if we just said that we want to find the absolute extrema o
 When we consider the absolute extrema in some interval, there are two places we can find these extrema.
 First, the critical points will give us local maxes and mins. 
 These maxes and mins may well have the biggest or smallest height of the function at their points, but we aren't guaranteed this.
-If you chop the function off at the end of some interval, you could chop it off at some really big value that would have kept getting bigger outside of the interval.
-For example, chopping $x^2$ at any value outside of zero will put absolute maxes at the endpoints of the interval. 
+If you chop the function off at the end of some interval, you could chop it off at some really big value that would have kept getting bigger outside of the interval
+(For example, chopping $x^2$ at any value outside of zero will put absolute maxes at the endpoints of the interval). 
+But these chopped points won't be critical points, because they weren't local extrema, just large values that would have been larger outside of the bound.
+We need to specifically look for these points when searching for absolute maximum/minimum values because they won't show up when we solve for critical points.
 
-So to find the absolute extrema of a function, we take all of the critical points, and all of the endpoints, and find the biggest and smallest values among them.
+So to find the absolute extrema of a function, we take all of the critical points, and all of the endpoints of our closed interval, and find the biggest and smallest values among them.
 We actually don't even need to check whether the critical points are actually local maxes or mins. We can just find all of their values and take the biggest and smallest.
 We might as well just evalute the function at the critical points instead of dealing with second derivative tests.
 We are, after all, looking for the biggest and smallest heights of the function.
@@ -580,14 +611,23 @@ Who cares if that happens at a saddle point or not.
 
 In 2D evaluating a function at the endpoints of an interval is super easy. If the interval is $[0, 1]$, then you just take $f(0)$ and $f(1)$.
 In 3D, life isn't as easy\footnote{Is it ever?}.
-We need to slice the surface along some direction or curve or something.
+We need to slice the surface along some direction or curve or whatever defines our interval.
 So maybe the interval we care about is the unit circle (points with distance 1 from the origin), or a square from $(0, 0)$ to $(1, 1)$.
 In each of these cases, we need to take some kind of slice of the function, which will give us a 2D function and then find the absolute extrema on that 2D function!
 So there you have to find the critical points of the 2D slice, evaluate it at its endpoints, and it's a real pain.
 This all sounds like I'm leading up to some nice trick. I'm not. I hope there's a better solution out there though.
 Further research needed.
 
-\textbf{I also need to re-write this section. Again hope that nobody that isn't me reads this.}
+So the overall process for finding 3D absolute extrema goes as follows:
+\begin{enumerate}
+    \item Find the critical points
+    \item Find any suspicious points on the boundary of the interval
+    \item Evaluate the function at all of the points you collected from the first two steps. The biggest and smallest values are your absolute extrema.
+\end{enumerate}
+The suspicious points are places on the boundary of the interval that might be extreme values.
+The boundaries are 2D slices of the function, so you should just find the absolute max/min on that 2D slice, and throw that in the pot with the critical points of the surface inside the interval.
+Finding absolute extrema then becomes a nested problem.
+You need to consider all of the extreme values within the 3D surface bounded by the interval \emph{and} all of the extreme values on the 2D boundary slices. 
 
 \subsection{Constrained Optimization}
 This is the form of optimization that makes up all the fun word problems.
@@ -679,17 +719,111 @@ Further research needed as to why this makes sense.
 
 \section{Multiple Integrals}
 In 2D we can find areas under curves with integrals, and that's super useful!
-For example, I used it in \externalLink{https://github.com/SAXTEN2011/GyroLib2020}{GyroLib}.
-It's really useful to be able to climb up the position/velocity/acceleration tower, in the same way that it's useful to go down it.
+For example, I used it in some functions for rewriting \externalLink{https://github.com/SAXTEN2011/GyroLib2020}{GyroLib} to find theta from angular velocity.
+It's really useful to be able to climb up the position/velocity/acceleration tower, in the same way that it's useful to go down it with derivatives.
 
 In 3D we look for volumes under surfaces, instead of areas under 2D curves.
 
 From 2D, we added a whole bunch of rectangles of height $f(x)$ and width $dx$. 
 In 3D, we use rectangular prisms of height $f(x, y)$, length $dx$ and width $dy$.
 
-Another nice way to do this is to add up slices of the function. 
+Another nice way to do this is to add up areas under slices of the surface. 
 We can fix some y value to $y_0$ and take the corresponding slice of the function.
 Integrating this 2D function gives us the area of that slice.
 If we now consider $y_0$ to be the variable $y$, we can integrate that integral over y.
 This adds up the areas of all of the slices of the functions, and gives us a volume.
+
+Given that adding up slices in the x or slices in the y measures the same volume, the order of integrating doesn't really matter, except when it does.
+Fubini's Theorem dictates when it matters, but it's not super relevant right now.
+Everything we're given to compute in class will work just fine both ways.
+
+To actually compute multiple integrals, you perform something called...
+\subsection{Iterated Integrals}
+Iterated Integrals are how we actually find the volume under a surface.
+Let's look at an example
+\begin{gather*}
+    \int_c^d \int_a^b f(x, y) \,dx\,dy
+\end{gather*}
+To compute this, you take $\int_a^b f(x, y) \,dx$ and compute it. We'll call the result $u$.
+You then compute $\int_c^d u\,dy$ to find the final volume.
+
+Here's an example with numbers!
+\begin{gather*}
+    \int_0^1 \int_0^1 (x+y) \,dy\,dx\\
+    = \int_0^1 xy + \frac{1}{2}y^2 \biggr \rvert_0^1 \,dx\\
+    = \int_0^1 x + \frac{1}{2}\ \,dx\\
+    = \frac{1}{2}x^2 + \frac{1}{2}x \biggr \rvert_0^1\\
+    = \frac{1}{2} + \frac{1}{2} = 1
+\end{gather*}
+
+\subsection{Integrating Over a General Region}
+Sometimes we want to integrate over nicely shaped domains like rectangles.
+This is pretty straightforward.
+Sometimes we want to integrate over crazy squiggly lake shaped things.
+This is not so straightforward.
+
+When we integrate over some region (say between two sine waves, i.e $sin(x)$ and $sin(x) + 5$ we might actually have to be mindful of our integrals.
+If we take vertical slices of our domain, we're fine.
+Horizontal slices, however, could intersect the sine wave, and all of the sudden our integral is way off.
+
+In these cases, we need to consider the shape of the function to make sure we are taking slices of the function that make sense.
+This is like performing the vertical line test.
+If we pass a horizontal (or vertical) line across the domain, and intersect the domain in a nontrivial way, we can't take slices in that direction.
+
+The way to figure out what direction is to just visualize the domain. 
+It's not that hard to see which axis will give you trouble. 
+The more tricky part is knowing if your problem axis goes first or second.
+Remember that the outside integral is what adds up slices, so if you're going along the y axis to add slices (i.e your outside integral is w.r.t y), then you must be adding up slices that are parallel to the x axis.
+Similarly, if you are adding up slices as you move along the x axis, you must be slicing in the y direction.
+So your slice direction is the inside integral, so that the outside integral moves orthogonal to that direction to compute a volume.
+\textbf{Problem axes become outside integrals.}
+
+Hold on. What if I want to integrate over a square whose edges are sine waves?
+Every axis is a problem axis!
+
+If at all possible, try not to want to do this. However, here is how you would do this.
+
+Just like in 2D, you can add integrals together to get areas,
+so the integral from 0 to 1, plus the integral from 1 to 2, is the same as the integral from 0 to 2, assuming no funny business.
+In 3D we have the same principle. If you integrate over two adjacent domains, and add their integrals, it's like integrating over both of them in one step.
+So now just split your square into a whole bunch of domains that have only a single problem axis (maybe one domain between the top and bottom sine wave, one domain as the area of the left sine wave and a third as the area of the right sine wave).
+
+You also could do some thinking about whether the sine waved sides change the area or not.
+If they cover a full period it might be identical to a normal square with lines as sides.
+Frequently, you can think about properties like that (frequently symmetry as well) to cheat the integral a bit.
+
+\subsection{Changing Order of Iterated Integrals}
+For some reason, you might want to change the order of iterated integrals. 
+Maybe the math is easier when you integrate x first, and then do y, or maybe it's easier the other way around.
+
+If you're integrating over some strange bounds, pretty much anything but a rectangle, the process isn't so easy.
+Say you want to integrate over some squiggly shaped domain.
+You need to take slices of the function in a different direction, which will require new bounds to be computed.
+
+For example, the problem axis in figure 6 is the x axis.
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.5\textwidth]{problemaxis}
+    \caption{}
+\end{figure}
+It might be easier to think of it as the problem direction, instead of an axis, but whichever way you think about it, you want to take vertical slices.
+
+How do you take a vertical slice? 
+You integrate with respect to y!
+That tripped me up a lot. If you integrate with respect to x in 2D you get slices parallel to the y axis.
+So what gives? Why does integrating w.r.t y in 3D produce vertical slices of the function all of the sudden?
+When you integrate w.r.t y in 3D, you hold x to be a constant. This gives you a 2D function in the yz plane.
+The base of that graph is the y axis, so you end up slicing the domain of integration along the y axis as well.
+That slice is represented as:
+\begin{gather*}
+    \int_{g_1(x)}^{g_2(x)} f(x, y) \,dy
+\end{gather*}
+You then apply your outside integral over x to add up all of those y slices.
+\begin{gather*}
+    \int_a^b\left(\int_{g_1(x)}^{g_2(x)} f(x, y) \,dy\right)\,dx
+\end{gather*}
+
+A final way to see this is that the domain is between two functions of x. 
+If you try to integrate that with respect to x, the bounds \emph{and the function} depend on x, and that is potentially impossible?
+Just avoid all of that by integrating w.r.t y first
 \end{document}
