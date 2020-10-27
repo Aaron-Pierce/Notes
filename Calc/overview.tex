@@ -420,7 +420,7 @@ A neat thing to note is that the gradient field points in the direction of steep
 
 \begin{figure}[h]
     \centering 
-    \includegraphics[width=0.75\textwidth]{orthogonalContour}
+    \includegraphics[width=0.75\textwidth]{orthogonalContour-min}
     \caption{A gradient field of $z = \sin(x)\sin(y)$ against its contour field. The vectors all point towards the peaks, which means orthogonal to the contours! Also, if they were parallel to the contours, you find a way to not ascend at all!}
 \end{figure}
 
@@ -719,8 +719,8 @@ Further research needed as to why this makes sense.
 
 \section{Multiple Integrals}
 In 2D we can find areas under curves with integrals, and that's super useful!
-For example, I used it in some functions for rewriting \externalLink{https://github.com/SAXTEN2011/GyroLib2020}{GyroLib} to find theta from angular velocity.
-It's really useful to be able to climb up the position/velocity/acceleration tower, in the same way that it's useful to go down it with derivatives.
+For example, It's used all over the place in \externalLink{https://github.com/SAXTEN2011/GyroLib2020}{GyroLib} to find theta from angular velocity.
+It's always handy to be able to climb up the position/velocity/acceleration tower, in the same way that it's useful to go down it with derivatives.
 
 In 3D we look for volumes under surfaces, instead of areas under 2D curves.
 
@@ -757,48 +757,26 @@ Here's an example with numbers!
 \end{gather*}
 
 \subsection{Integrating Over a General Region}
-Sometimes we want to integrate over nicely shaped domains like rectangles.
+Sometimes we want to integrate over nicely shaped domains like rectangles, as we did above.
 This is pretty straightforward.
 Sometimes we want to integrate over crazy squiggly lake shaped things.
 This is not so straightforward.
 
 When we integrate over some region (say between two sine waves, i.e $sin(x)$ and $sin(x) + 5$ we might actually have to be mindful of our integrals.
-If we take vertical slices of our domain, we're fine.
-Horizontal slices, however, could intersect the sine wave, and all of the sudden our integral is way off.
+If we take vertical (y direction) slices of our domain, we're fine.
+Horizontal (x direction) slices, however, could intersect the sine wave, and all of the sudden our integral is way off.
 
 In these cases, we need to consider the shape of the function to make sure we are taking slices of the function that make sense.
 This is like performing the vertical line test.
 If we pass a horizontal (or vertical) line across the domain, and intersect the domain in a nontrivial way, we can't take slices in that direction.
 
-The way to figure out what direction is to just visualize the domain. 
+Visualizing the domain is the easiest way to determine which direction you should take slices in. 
 It's not that hard to see which axis will give you trouble. 
 The more tricky part is knowing if your problem axis goes first or second.
 Remember that the outside integral is what adds up slices, so if you're going along the y axis to add slices (i.e your outside integral is w.r.t y), then you must be adding up slices that are parallel to the x axis.
 Similarly, if you are adding up slices as you move along the x axis, you must be slicing in the y direction.
 So your slice direction is the inside integral, so that the outside integral moves orthogonal to that direction to compute a volume.
 \textbf{Problem axes become outside integrals.}
-
-Hold on. What if I want to integrate over a square whose edges are sine waves?
-Every axis is a problem axis!
-
-If at all possible, try not to want to do this. However, here is how you would do this.
-
-Just like in 2D, you can add integrals together to get areas,
-so the integral from 0 to 1, plus the integral from 1 to 2, is the same as the integral from 0 to 2, assuming no funny business.
-In 3D we have the same principle. If you integrate over two adjacent domains, and add their integrals, it's like integrating over both of them in one step.
-So now just split your square into a whole bunch of domains that have only a single problem axis (maybe one domain between the top and bottom sine wave, one domain as the area of the left sine wave and a third as the area of the right sine wave).
-
-You also could do some thinking about whether the sine waved sides change the area or not.
-If they cover a full period it might be identical to a normal square with lines as sides.
-Frequently, you can think about properties like that (frequently symmetry as well) to cheat the integral a bit.
-
-\subsection{Changing Order of Iterated Integrals}
-For some reason, you might want to change the order of iterated integrals. 
-Maybe the math is easier when you integrate x first, and then do y, or maybe it's easier the other way around.
-
-If you're integrating over some strange bounds, pretty much anything but a rectangle, the process isn't so easy.
-Say you want to integrate over some squiggly shaped domain.
-You need to take slices of the function in a different direction, which will require new bounds to be computed.
 
 For example, the problem axis in figure 6 is the x axis.
 \begin{figure}[h]
@@ -825,5 +803,147 @@ You then apply your outside integral over x to add up all of those y slices.
 
 A final way to see this is that the domain is between two functions of x. 
 If you try to integrate that with respect to x, the bounds \emph{and the function} depend on x, and that is potentially impossible?
-Just avoid all of that by integrating w.r.t y first
+Just avoid all of that by integrating w.r.t y first.
+
+Hold on. What if I want to integrate over a square whose edges are sine waves?
+Every axis is a problem axis!
+
+If at all possible, try not to want to do this. However, here is how you would do this.
+
+Just like in 2D, you can add integrals together to get areas,
+so the integral from 0 to 1, plus the integral from 1 to 2, is the same as the integral from 0 to 2, assuming no funny business.
+In 3D we have the same principle. If you integrate over two adjacent domains, and add their integrals, it's like integrating over both of them in one step.
+So now just split your square into a whole bunch of domains that have only a single problem axis (maybe one domain between the top and bottom sine wave, one domain as the area of the left sine wave and a third as the area of the right sine wave).
+
+You also could do some thinking about whether the sine waved sides change the area or not.
+If they cover a full period it might be identical to a normal square with lines as sides.
+Frequently, you can think about properties like that (symmetry is a common one as well) to cheat the integral a bit.
+
+\subsection{Changing Order of Iterated Integrals}
+For some reason, you might want to change the order of iterated integrals. 
+Maybe the math is easier when you integrate x first, and then do y, or maybe it's easier the other way around.
+
+If you're integrating over some strange bounds, pretty much anything but a rectangle, the process isn't so easy.
+Say you want to integrate over some squiggly shaped domain.
+You need to take slices of the function in a different direction, which will require new bounds to be computed.
+
+\textbf{The following is conjecture}
+
+If you are integrating over a domain, you are almost certainly integrating between two functions on the inside, and two numbers on the outside.
+If you want to switch this around, the easiest way is, again, to visualize the domain.
+For the same reasons as before, the inside integral will be a function, but now of the other variable.
+This function is definitionally the inverse of the functions before.
+If one function of x is above the other function of x, then as a function of y it must be lower.
+To see this, rotate a graph by 90 degrees. The lower function comes out on top.
+Because the functions switch around, you also need to switch your bounds around, so it seems that you take the inverse of the functions, and switch the order of the bounds.
+
+Finally, you need to find the new outside bounds. 
+The bounds used to be x values, but now they're y values.
+To find these new values, we can use our old functions.
+The bounds just need to be the endpoints of the function, so we can evaluate our old functions at their old bounds to find the bounds of the rotated function.
+
+\subsection{A Few Application of Double Integrals}
+\subsubsection{Area of 2D Domains}
+If you find the volume of a cylinder of some sort, it is equal to the base of the cylinder times the height.
+
+If you force the height of that cylinder to be 1, then the volume of the cylinder will equal the 2D area of the base.
+To find the volume of some cylinder, you integrate some curve that defines the height of that cylinder over the 2D base.
+If that function is $f(x, y) = 1$, then the height at all points is 1, and thus integrating that function over a domain will result in the area of the domain.
+
+So the general formula is:
+\begin{gather*}
+    \text{Area} = \iint_{\mathbf{D}} 1\,dx\,dy
+\end{gather*}
+
+\subsubsection{Surface area}
+If we want to find the surface area of some curve, we can think about shingling it like a roof.
+If we tesselate a whole bunch of squares, and add up their areas, we can get a nice approximation of the surface area.
+This just begs for an integral to be used, but how do we express these squares?
+
+Let's think about some different curves. Firstly, a horizontal plane will have some surface area, let's call it $A$.
+If we take that surface area and pull up a hill from it, the surface area has to increase.
+If you hammer a bump into a sheet of metal, the sheet has to deform, because this hill has more surface area over it's domain than just a flat plane.
+We can just add area in magic math land, so we say that some sheet with a bump in it has an area greater than $A$.
+
+Thus, the higher the slope at each point, the bigger the shingle will be. 
+If we didn't think about the slope at each point, we are just adding up constant area squares at each point, which will just give us the area if we projected the surface to the xy plane.
+
+Instead, let's think about how we fit these shingles on the curve.
+For every point, we need to build a shingle that connects a rectangle from the point you consider to some next dx and dy.
+We can express these points as starting at $(a, b)$ and adding $(dx, 0, f_{x}(a, b)dx)$ and $(0, dy, f_{y}(a, b)dy)$.
+In other words, we take a tangent plane, and just take a teeny tiny shingle out of that big plane.
+
+But now we need the area of this square.
+It is spanned by $(dx, 0, f_{x}(a, b)dx)$ and $(0, dy, f_{y}(a, b)dy)$, so the cross product will definitionally spit that out.
+
+So our integral looks like 
+\begin{gather*}
+\iint \lVert(dx, 0, f_{x}(a, b)dx) \times (0, dy, f_{y}(a, b)dy)\rVert    
+\end{gather*}
+But that is one heck of a cross product to compute, so let's simplify it a bit.
+
+The cross product comes out to 
+\begin{gather*}
+    (-f_x dxdy, -f_ydxdy, dxdy)
+\end{gather*}
+The length of that cross product is the area of the shingle
+\begin{gather*}
+    \sqrt{(dxdy)^2(f_x^2 + f_y^2 + 1)}\\
+    = \sqrt{f_x^2 + f_y^2 + 1}\,dxdy
+\end{gather*}
+Remember that $f_{x}$ and $f_y$ are evaluated at each point $(a, b)$. 
+Gets pretty busy to write their full function calls out for all of this.
+
+This is also the distance from the origin of the point $(f_x, f_y, 1)$ in 3-space. 
+I wonder if that is significant in some way. Further research needed.
+
+\subsection{Integrals in Polar Coordinates}
+If you need to integrate over circles, it's time to bust out the polar coordinates.
+Circles in cartesian end up with weird exponents and radicals and stuff, and polar makes this way easier.
+
+You can convert by substituting all x for $r\cos(\theta)$ and all y for $r\sin(\theta)$.
+Usually you can just eyeball it by remembering that r is $x^2 + y^2$.
+
+Integrals are now a little weird. 
+It's kinda hard to get squares out of polar coordinates.
+If we bump r by some value, and theta by some other value, we will move in something like a diagonal.
+That fact is hard to justify, so it's probably false, but it is just enough intuition for me to not question it much.
+
+That diagonal will cover some square's diagonal, so what's the area of the square?
+
+First off, we've bumped theta by some value. 
+The corresponding change in the y will be $r\sin(d\theta)$ but we are bumping theta by some teeny value, so by the small angle theorem (one of my very favorite theorems),
+we can say that the square(it's really a rectangle) has height $rd\theta$.
+
+So what's the change in x?
+Good question. We need to stop thinking of this square as being parallel to the x and y axes.
+It's actually rotated along the radius, so at 45deg the square is also rotated 45deg.
+This makes it pretty clear that the width of the squre will be $dr$, because the rectangle is defined along that axis.
+
+Now that we've changed our perspective a bit, is our height still right?
+It is, actually, because $d\theta$ will form a teeny tiny triangle that is also rotated to the value of big theta, so we're still good.
+
+Quick recap of all of that, some teeny $d\theta$ will form a triangle because the arc of the circle that is created by $d\theta$ is a line as we get infinitely small.
+That triangle has a height of $rsin(d\theta)$, because it's a triangle.
+Extending off of that height is also some $dr$. Because that triangle's base is defined by r, the width of the square that we add after adding $dr$ and $d\theta$ will just be $dr$.
+
+Here's a picture to show that, straight from the textbook.
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.5\textwidth]{polarIntegral}
+    \caption{This is figure 5 from the textbook but its actually figure 7}
+\end{figure}
+The super important thing is to remember how to find the area of that triangle.
+The base is $dr$, and the height is $rd\theta$
+So to add up volumes, you multiply the base ($rdrd\theta$), where $r$ is the radius at that point, and multiply it by the height of your function.
+
+All said, it comes out to
+\begin{gather*}
+    \iint f(r, \theta)\,rdrd\theta
+\end{gather*}
+If $r$ is constant (your domain is a (portion of a) circle), you're in luck, but frequently $r$ is some function of theta, so it may be better to remember it as
+
+\begin{gather*}
+    \iint f(r, \theta) \cdot r(\theta)  \,drd\theta
+\end{gather*}
 \end{document}

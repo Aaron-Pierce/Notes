@@ -20,4 +20,8 @@
 \contentsline {section}{\numberline {5}Multiple Integrals}{30}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Iterated Integrals}{31}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Integrating Over a General Region}{31}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Changing Order of Iterated Integrals}{33}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}Changing Order of Iterated Integrals}{34}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}A Few Application of Double Integrals}{35}{subsection.5.4}%
+\contentsline {subsubsection}{\numberline {5.4.1}Area of 2D Domains}{35}{subsubsection.5.4.1}%
+\contentsline {subsubsection}{\numberline {5.4.2}Surface area}{35}{subsubsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.5}Integrals in Polar Coordinates}{36}{subsection.5.5}%
