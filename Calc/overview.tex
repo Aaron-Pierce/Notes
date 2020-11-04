@@ -48,6 +48,7 @@ This definition derives some very useful other expressions, such as
     comp_{\vec{B}} \vec{A} = \frac{\vec{A} \cdot \vec{B}}{|\vec{B}|} = \vec{A}\cos(\theta)
 \end{equation}
 
+\label{equOfDotProductDefinitions}
 Another way to define the dot product is the sum of the products of the components of the vectors. Another mouthful. The math is a easier to understand
 \begin{gather*}
     \text{Let} \vec{A} = (A_1, A_2, ..., A_n)\\
@@ -112,8 +113,7 @@ There's a similar concept in $\mathbf{R}^3$, with the vector form of a line. You
 The vector form of a line is as follows:
 \begin{displaymath}
     L = \{\vec{r}(t) = P_0 + t\vec{d}\}
-\end{displaymath}
-Where $P_0$ is the point, and $\vec{d}$ is the direction vector of the line, the 3-space analog of a line's slope, and $t$ is some real number to scale the direction vector by.
+\end{displaymath}hatr of the line, the 3-space analog of a line's slope, and $t$ is some real number to scale the direction vector by.
 
 This can also be rewritten in terms of each component of the vector that is returned by $\vec{r}(t)$, known as the parametric form of the line
 
@@ -411,6 +411,7 @@ The gradient itself, evaluated at $(a, b)$, normalized, will then be the vector 
 Pretty cool stuff. It's the backbone of the Gradient Descent Algorithm and I implemented it for a \externalLink{https://github.com/SAXTEN2011/LinearRegression/blob/master/index.js}{Linear Regression Model}
 
 \subsection{Vector Fields}
+\label{ssec:vectorFields}
 
 Vector fields are pretty much what they sound like. It's a 2D plane of vectors, i.e. a function $f(x, y)$ that maps each point to some $\vec{v}$, which generalizes to some n-dimensional function mapping to some n-tuple
 
@@ -902,10 +903,12 @@ If you need to integrate over circles, it's time to bust out the polar coordinat
 Circles in cartesian end up with weird exponents and radicals and stuff, and polar makes this way easier.
 
 You can convert by substituting all x for $r\cos(\theta)$ and all y for $r\sin(\theta)$.
-Usually you can just eyeball it by remembering that r is $x^2 + y^2$.
+Usually you can just eyeball it by remembering that $r^2$ is $x^2 + y^2$.
 
-Integrals are now a little weird. 
-It's kinda hard to get squares out of polar coordinates.
+Integrals are little weird now that we're in polar. 
+It's kinda hard to get squares out of polar coordinates, so it's not clear how we actually take this integral.
+In cartesian, it's easy to sum up the areas of rectangles times the height of the function, but we have circles now.
+But circles look a lot like straight lines if you zoom in far enough.
 If we bump r by some value, and theta by some other value, we will move in something like a diagonal.
 That fact is hard to justify, so it's probably false, but it is just enough intuition for me to not question it much.
 
@@ -923,7 +926,7 @@ This makes it pretty clear that the width of the squre will be $dr$, because the
 Now that we've changed our perspective a bit, is our height still right?
 It is, actually, because $d\theta$ will form a teeny tiny triangle that is also rotated to the value of big theta, so we're still good.
 
-Quick recap of all of that, some teeny $d\theta$ will form a triangle because the arc of the circle that is created by $d\theta$ is a line as we get infinitely small.
+Quick recap of all of that, some teeny $d\theta$ will form a triangle because the arc of the circle that is created by $d\theta$ is basically just the tangent line as we get infinitely small.
 That triangle has a height of $rsin(d\theta)$, because it's a triangle.
 Extending off of that height is also some $dr$. Because that triangle's base is defined by r, the width of the square that we add after adding $dr$ and $d\theta$ will just be $dr$.
 
@@ -933,7 +936,7 @@ Here's a picture to show that, straight from the textbook.
     \includegraphics[width=0.5\textwidth]{polarIntegral}
     \caption{This is figure 5 from the textbook but its actually figure 7}
 \end{figure}
-The super important thing is to remember how to find the area of that triangle.
+The super important thing is to remember how to find the area of that little square.
 The base is $dr$, and the height is $rd\theta$
 So to add up volumes, you multiply the base ($rdrd\theta$), where $r$ is the radius at that point, and multiply it by the height of your function.
 
@@ -941,9 +944,274 @@ All said, it comes out to
 \begin{gather*}
     \iint f(r, \theta)\,rdrd\theta
 \end{gather*}
-If $r$ is constant (your domain is a (portion of a) circle), you're in luck, but frequently $r$ is some function of theta, so it may be better to remember it as
 
+\subsection{Triple Integrals}
+Triple integrals follow so easily from double integrals that it might be fair enough to put a triple integral on a test if you only learned double integrals, just to check your understanding
+
+There is, however, one teeny complication.
+If you need to integrate over some really crazy 3D volume, we get some problems.
+\subsubsection{Triple Integrals Over General Regions}
+Thankfully, we have a saving grace.
+If you can figure out our lower and upper bound of z given x and y, you reduce the problem back to 2D again.
+Usually, it's not that hard given the textbook problems, so the general strategy should be to
+\begin{enumerate}
+    \item Integrate first by z. Figure out the bounds of z as a function of x and y
+    \item Project your domain to the xy plane and find the bounds like a double integral
+\end{enumerate}
+If you can pull that off, you can save yourself a lot of thinking
+\subsection{Integrals in Cylindrical, Spherical coordinates, and the Jacobian}
+When we take any integral in any coordinate system, we really just need to consider how to add up volumes in that space.
+Namely, what is the volume of the box created by the nudges in any axis.
+
+I wrote about how you do this in polar coordinates, where the significant part is that the box made by $dr$ and $d\theta$ has area $rdrd\theta$.
+Let's look at two other coordinate systems (3D systems, instead of 2D) and figure out how to integrate over them.
+
+\subsubsection{Cylindrical}
+Cylindrical is a 3D extension of polar. 
+In polar we take an r and a $\theta$ to find 2D points.
+If we just assign each of those points some z value we get spherical coordinates.
+So you can represent any point in 3-space as $(r, \theta, z)$,
+and to convert from cartesian to cylindrical it looks exactly like cartesian to polar.
+$x$ becomes $r\cos(\theta)$ and $y$ becomes $r\sin(\theta)$ and z stays as z.
+
+How we integrate in cylindrical falls out pretty naturally, because it's just polar with a z value, the volume of the boxes is the base (which comes from a polar system),
+and the height, which is just z.
+So the area of cylindrical boxes is base times height, where base is $r dr d\theta$, from polar, and the height is $dz$, because it's cartesian.
+
+All said, the triple integral to remember is...
+\begin{displaymath}
+    \iiint f(x) \,rdr\,d\theta\,dz
+\end{displaymath}
+In whatever order is necessary or convenient.
+
+\subsubsection{Spherical}
+Spherical is also an extension of polar, with a little more complexity.
+
+We take a polar coordinate system, and raise each point to some theta against the z axis.
+We represent these points as $(r, \theta, \phi)$.
+We take some radius, rotate it along the xy plane, and rotate it along the z direction, to correctly set the x, y, and z values of a point.
+
+Except that's not the whole truth, because rotating a point from the xy plane towards the z axis necessarily decreases the x and y values!
+So where are those points actually at?
+It's not as simple as $r\cos(\theta)$ and variants of that, because the z value (which is influenced by $\phi$) changes the x and y.
+So with that observation we know that x and y must rely on both $\theta$ and $\phi$.
+
+Thankfully, the relationship is pretty easy.
+Imagine that $\phi = \frac{\pi}{2}$ (lies on the xy plane, no z value), then we just have polar coordinates living ambiently in 3D.
+In this case, x and y \emph{do} equal r times their trig function, because z exercises no influence over them.
+
+Now imagine that $\phi = 0$, then the point must lie on the z axis.
+If it lies on the z axis, you can rotate the point along the xy plane all you want and nothing is going to happen,
+so the polar portion of the spherical coordinates should be irrelevant.
+
+If you are willing to squint your eyes a little, it just so happens that $\sin(\phi) = 1$ for $\phi = \frac{\pi}{2}$,
+and $\sin(\phi) = 0$ for $\phi = 0$, so you could multiply $r\cos(\theta)$ and $r\sin(\theta)$ both by $\sin(\phi)$.
+Then they are full valued when there's no z component, and gone when it's only a z component.
+
+Another way you can think about this is that decreasing $\phi$ (rotating towards z axis from xy plane)
+will decrease r, because r definitionally points away from the z axis, and you are moving it closer towards it.
+That increase will be proportional to the sine of $\phi$, because $r\sin\phi$ is parallel to the xy plane.
+The angle points upwards, after all.
+
+With that out of the way, we can translate between cartesian and spherical as follows:
 \begin{gather*}
-    \iint f(r, \theta) \cdot r(\theta)  \,drd\theta
+    x = r\cos(\theta)\sin(\phi)\\
+    y = r\sin(\theta)\sin(\phi)\\
+    z = r\cos(\phi)
 \end{gather*}
+
+So if we want to integrate over a spherical domain, we need a way to compute the volume of a teeny tiny box of this sphere.
+It's not so hard, though.
+If we integrate in cartesian, the box has volume $dxdydz$, and we just wrote x, y, and z, in terms of spherical variables.
+Let's just compute $dx$, $dy$, and $dz$, and multiply them!
+
+However, each of x, y, and z has more than one variable.
+
+- Quick shift in tone, I thought at this point that I was horribly off track, but
+I took the gradient of x, y, and z, and took the triple product $z \cdot (x \times y)$ and it gave me $-r^2 \sin(\phi)$.
+I think the negative was a calculation error somewhere, but that is exactly correct for the extra volume.
+Assuming that this is actually a sign error, and not a fluke that happenened to get close by some wrong derivative, this feels pretty miraculous.
+I'm a bit astonished that worked.
+
+That was an absolutely nasty triple product to compute, though.
+Only Wolfram could output that it reduced down nicely, so we need a better way of thinking about it, for re-derivation's sake.
+
+We're about to talk about the Jacobian, which will generalize all of this, so I'm going to leave this one to dirty intuition.
+
+We decided that in polar, boxes have volume $rdrdtheta$.
+We also add some angle towards the z axis, $\phi$, so we need to add $d\phi$
+
+After that, you need to figure out the change in z given a bump in $\phi$.
+One way to justify this is that $d\phi$ is a quantity of radians, and radians don't help when we measure volume, we need units of volume, so we need to hit that radians number with a radius.
+This means we add another $r$, in order to convert $d\phi$ from radians to our unit of volume.
+Finally, when we increase $\phi$, we also scale everything else in the xy by $\sin(\phi)$ so we throw that in there too, to end up with
+\begin{gather*}
+    \iiint\, (rd\phi \sin(\phi)) rdrd\theta
+\end{gather*} 
+(All of the new stuff is in parenthesis).
+Rearranging that to finish with
+\begin{gather*}
+    \iiint\, r^2 \sin(\phi) dr d\phi d\theta
+\end{gather*}
+
+\subsubsection{The Jacobian}
+Here we go. 
+The Jacobian will, for these purposes, generalize the process of finding those subdivisions of a volume that allowed us to integrate over things like spherical coordinates.
+
+Quick intuition on matricies as transformations of space before we begin.
+A matrix
+\begin{gather*}
+    \begin{pmatrix}
+        2 & -3 & 1\\
+        5 & 2 & 3\\
+        1 & 1 & 1\\
+    \end{pmatrix}
+\end{gather*}
+
+Represents a matrix in space, where $\hat{i}$, $\hat{j}$, $\hat{k}$,
+map to the first, second, and third columns of that matrix, respectively.
+This represents a change of basis, of sorts, that we get a new coordinate system with basis vectors
+$(2, 5, 1)$, $(-3, 2, 1)$, and $(1, 1, 1)$.
+
+This will forma a basis because any vector can be written as a sum of basis vectors.
+If we take any vector, and write it as a linear combination of the standard basis, we can perform the transformation over that sum and reach any vector
+(much in the same way that we did in talking about \hyperref[equOfDotProductDefinitions]{the equivalence of the different definitions of the dot product}).
+
+Great, with that out of the way, let's think about some crazy transformation that actually isn't linear at all.
+Maybe it sends x to the sine of something and y to the sine of something else, and it's complete nonsense (maybe something circular).
+So long as you don't have something truly insane, you can zoom in on some teeny tiny point (starting to sound familiar?)
+and find what looks a whole lot like a linear transformation if you zoom in far enough that the curves become pretty much their tangent lines.
+
+However, that linear transformation isn't going to be obvious. 
+You could zoom in and the lines could be going in any random direction (but only one, because it's a linear transformation), so it's useful to figure out what that transformation actually looks like.
+
+(To motivate doing this this, it will help us figure out how to find little chunks of crazy things, by converting something, say a polar coordinate grid, to a grid of squares that we can add up.)
+The way we can do this is to linearize the function!
+We were doing transformations before, so let's figure out a matrix that takes some tiny step in the standard basis, and tells you where that step would end up taking you after a crazy transformation.
+
+Let's think about 2D.
+If we are at some point in space before a transformation, and we move to the right by some nudge $dx$,
+our overall change is $dx\hat{i}$, some scalar multiple of the basis vector.
+We are thinking of linear transformations as mappings of basis vectors to other basis vectors, so this is very useful.
+
+Recall what we're doing here - we have some crazy transformation, and we want to zooming way in on a tiny bit, in an effort to make it sufficiently linear.
+So when we take a vector $dx\hat{i}$, we want to transform that vector to the change vector after the transformation.
+
+We know exactly what this transformation is. 
+Say we are sending $(1, 0)$ to $(a, b)$.
+Where $a$ and $b$ are some function evaluated at $(1, 0)$.
+If we take the partial derivatives of the function that spit out a and b with respect to x, we get the associated changes in the output vector given a change in x,
+and the same works for y, so the Jacobian will be formed by taking the transformation and taking partial derivatives for each function that an input variable maps to.
+
+These functions are commonly called $u$ and $v$, so we take
+\begin{gather*}
+    \begin{pmatrix}
+        \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y}\\
+        \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y}\\
+    \end{pmatrix}
+\end{gather*}
+
+And when we take the determinant of this matrix, we get the factor by which it scales area.
+
+So if we think of the transformation $(x, y) \mapsto (r\cos(\theta), r\sin(\theta))$ (cartesian to polar),
+the Jacobian looks like
+\begin{gather*}
+    \begin{pmatrix}
+        \frac{\partial}{\partial r} r\cos(\theta) & \frac{\partial}{\partial r} r\sin(\theta)\\
+        \frac{\partial}{\partial \theta} r\cos(\theta) & \frac{\partial}{\partial \theta} r\sin(\theta)\\
+    \end{pmatrix}
+\end{gather*}
+
+And if we take the determinant, we get $r\cos^2(\theta)dr d\theta + r\sin^2(\theta)drd\theta$, which is equivalent to
+$rdrd\theta(\cos^2(\theta) + \sin^2(\theta))$, which is just $rdrd\theta$!
+
+(We added the $dr$s and $d\theta$s as a figment of the chain rule, because they could mean something, or they could just be 1. 
+Either way, it's useful to include in order to get all of what we want out of it)
+
+So areas of little linear squares in polar have area $rdrd\theta$!
+That's so cool! We found that earlier!
+All we had to do was zoom way in until the coordinates looked sufficiently linear,
+and represent that new linear looking coordinate system as a transformation from the standard basis to our zoomed in linear form.
+After that, the area of each of the tiny squares could be found by taking the determinant, because the determinant is the factor by which area is scaled,
+and we care about basis vectors, who will form squares of area 1, so the area of the subdivided squares is equal to 1 times the determinant, which is just the determinant.
+
+\section{Vector Calculus}
+So far the calculus we have been doing is just mostly generalizing calc 1 to more than two dimensions.
+
+Vector calculus is our first departure from this, where we will operate on vectors and vector fields, instead of real numbers and coordinate planes.
+
+We've already talked about vector fields in \textbf{\ref{ssec:vectorFields}}, but they will be immediately useful.
+As a quick recap, a vector field is a space where points in the space are mapped to vectors.
+$\nabla f(x, y)$ is an example of one such field, where every point maps to its gradient vector. 
+
+\subsection{Divergence and Curl}
+({I am heavily referencing \externalLink{https://www.youtube.com/watch?v=rB83DpBJQsE}{this 3b1b video} for this section. You may well watch it instead})
+
+
+When you get to looking at vector fields you begin to quickly imagine following them in a path, or maybe more helpfully as some kind of flow.
+Like if you dropped a ball, or a stream of water, on the field and it followed the vectors, you could kind of trace a path through the field.
+
+If it rains on our field, and we get water poured everywhere, it's a neat question to ask where the water would end up pooling.
+
+We can introduce the notion of divergence.
+If a given point has a positive divergence, water is flowing out of that point, whereas if the divergence is negative (think of it as convergence, the opposite of divergence)
+then water is flowing into that point, and it pools there.
+
+But divergence isn't just about where the water stops.
+While it's moving towards these pools, it moves at different rates.
+Maybe it falls off of a waterfall, and moves slowly to get there, but falls very fast once the water is off of the fall.
+We would say that waterfall has high divergence, because water leaves faster than it enters.
+
+So the divergence is a number, a score that you give a point, that tells you how water is going to behave near that point.
+It's positive if water goes away (diverges from the point) or negative if it comes in (converges into the point).
+This is close to a derivative, where the little neighborhood around our point is what gives us the information about the divergence.
+
+(As a quick sidenote, real water flow has a divergence of zero everywhere, because water fills up the point that it flows into.
+If you put water into a full hole, an equal amount of water comes out.
+Try not to think about that, though.)
+
+For the curl at a point, we also think about fluid flow, but we want to know about how the fluid rotates around the point.
+So if you drop a leaf onto the water, will it rotate clockwise, counterclockwise, or not at all?
+Counterclockwise rotation is said to have positive curl, becuase it follows the unit circle, or its theta increases by a positive amount each second.
+Clockwise rotation happens when you decrease theta, so it's called negative curl.
+Don't mistake these for like vortexes or something, though.
+If fluid flows faster at the top of a leaf than the bottom, it will rotate clockwise, so curl isn't just something for whirlpools.
+If you drop a ping pong ball into the water, you also need to think about how the ping pong ball will spin in the other direction, too.
+If water is flowing from front to back, it will rotate oppositely if water is flowing from back to front, so it's useful to represent curl as a vector,
+where it points in the 3D direction of spin, because you can spin a ping-pong ball both horizontally and vertically.
+
+With that intuition in the back of our heads, let's figure out how to actually compute them. We'll start with divergence.
+
+\subsubsection{Computing Divergence}
+For a point with positive divergence, water flowing into a point flows slower than water flowing out. 
+So if we have water only flowing in the x direction, from left to right, our divergence is zero if the flow to the left has the same velocity as the flow to the right.
+If the flow to the right is bigger than on the left, then we have positive divergence.
+In other words, the value just to the left of the point is lower than the value just to the right.
+If we were to graph that value, that would mean that going from left to right across the point increases the height of the graph, which exactly means that the derivative is positive.
+And if flow is flowing from right to left (we'll call that negative flow) then positive divergence happens when left is more negative than the right.
+Or put another way, going from left to right makes you less negative, therefore more positive, therefore again a positive derivative.
+
+So from all of that we see that divergence will look at the derivative across a point.
+In that example we only looked at water flowing in the x direction, so we would say that the partial derivative with respect to x at that point gives us our x divergence, the higher the partial derivative, the faster water flows out than in, and so the higher the divergence.
+
+The same works for the y direction, that the partial derivative gives us the divergence in that axis as well.
+
+When these derivatives agree, say they are both positive, then water will flow diagonally in the positive directions in both axes.
+If they are equal and opposite, we want there to be no divergence, because water flowing from left to right may speed up, but water flowing bottom top slows down.
+The net change on the water's velocity is zero, because the water is sped up in the x exactly as much as it's slowed down in the y.
+Finally, if we have a highly positive divergence in the x, but a low and potentially negative divergence in the y, we want to consider the net change in the water across the point,
+so adding the divergence allows us to consider that, too.
+
+This leads us to want to add up the partial derivatives at the point, so we want to dot $\nabla$ with the value of the vector field at that point, in order to add up its partial derivatives.
+In adding that up, we get a measure of the net change in velocity of water flowing across that point from any direction. 
+
+So we can notate the computation of divergence as
+\begin{gather*}
+    \text{div}(x, y) = \nabla \cdot \vec{\mathbf{F}}(x, y)
+\end{gather*}
+
+If that didn't feel satisfying enough, it's almost exactly a transcription of \externalLink{https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/divergence-grant-videos/v/divergence-formula-part-2}{this video from grant},
+which has some very pretty visuals and animations to go along with it.
+
+\subsubsection{Computing Curl}
 \end{document}
