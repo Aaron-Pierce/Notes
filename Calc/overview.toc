@@ -35,3 +35,8 @@
 \contentsline {subsection}{\numberline {6.1}Divergence and Curl}{44}{subsection.6.1}%
 \contentsline {subsubsection}{\numberline {6.1.1}Computing Divergence}{45}{subsubsection.6.1.1}%
 \contentsline {subsubsection}{\numberline {6.1.2}Computing Curl}{46}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}The "real" definition of divergence and curl}{48}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Line Integrals}{49}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Over Scalar Spaces}{49}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Over Vector Fields}{50}{subsubsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.3}The Fundamental Theorem of Line Integrals}{51}{subsubsection.6.3.3}%

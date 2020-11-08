@@ -1073,13 +1073,13 @@ map to the first, second, and third columns of that matrix, respectively.
 This represents a change of basis, of sorts, that we get a new coordinate system with basis vectors
 $(2, 5, 1)$, $(-3, 2, 1)$, and $(1, 1, 1)$.
 
-This will forma a basis because any vector can be written as a sum of basis vectors.
+This will form a basis because any vector can be written as a sum of basis vectors.
 If we take any vector, and write it as a linear combination of the standard basis, we can perform the transformation over that sum and reach any vector
 (much in the same way that we did in talking about \hyperref[equOfDotProductDefinitions]{the equivalence of the different definitions of the dot product}).
 
 Great, with that out of the way, let's think about some crazy transformation that actually isn't linear at all.
 Maybe it sends x to the sine of something and y to the sine of something else, and it's complete nonsense (maybe something circular).
-So long as you don't have something truly insane, you can zoom in on some teeny tiny point (starting to sound familiar?)
+So long as you don't have something truly insane, you can zoom in on some teeny tiny point (we seem to do that a lot)
 and find what looks a whole lot like a linear transformation if you zoom in far enough that the curves become pretty much their tangent lines.
 
 However, that linear transformation isn't going to be obvious. 
@@ -1214,4 +1214,188 @@ If that didn't feel satisfying enough, it's almost exactly a transcription of \e
 which has some very pretty visuals and animations to go along with it.
 
 \subsubsection{Computing Curl}
+(Again, \externalLink{https://www.khanacademy.org/math/multivariable-calculus/multivariable-derivatives/curl-grant-videos/v/2d-curl-formula}{this KhanAcademy video is really great})
+
+To compute curl, we are looking for places where the vectors around some point looks like they're going to spin.
+When the vectors will create some spinning motion, the left vector has to point up, the top vector points left, the left vector points down, and the bottom vector points right.
+All vector point into the next.
+
+In order for all vectors to point to the next, the top and bottom vectors have to point oppositely,
+and the left and right vectors also have to point oppositely.
+
+But it doesn't have to be completely oppositely.
+If water flows faster on the bottom than the top, you spin counterclockwise, so really we just care when the top goes faster than the bottom, and if the bottom just so happens to be negative, it still satisfies that.
+
+We measure this in much the same way we measured divergence.
+If we take a partial derivative across that point, and it increases, then we know we went from negative to positive (or low to high).
+
+But the partial derivative we care about is a little goofy.
+We want to know when the vector's x component (because the bottom vector needs to point to the right) increases as we go up.
+If our vector field is $\vec{\mathbf{F}}(x, y) = (Q, P)$, and $Q$ and $P$ are some functions, then we care about $\frac{\partial Q}{\partial y}$. 
+
+And similarly, $\frac{\partial P}{\partial x}$, will also tell us if the right vector has more vertical push than the left vector.
+
+If the top pushes to the right, and the right pushes up, the water won't really spin.
+You shove stuff into the corner.
+So we need to know when $\frac{\partial Q}{\partial y}$ is opposite of $\frac{\partial P}{\partial x}$,
+otherwise you end up shoved into the corner.
+
+If they're opposite, then subtracting one from the other will tell you just how different they are from each other.
+And if going from bottom to top increases the x component of the vector (think negative x at the bottom and positive on the top), you get clockwise rotation.
+We call clockwise rotation negative, so we want to subtract that from the derivative across the horizontal direction, so that counterclockwise remains positive.
+
+And that will just give us a number.
+Kind of an angular velocity, how many radians you add per second.
+If we think back to the initial intuition of curl, we also thought about putting a ping pong ball on the water.
+If water is rushing under the bottom of that ball, the ball will spin into the water.
+And just a single number doesn't describe the full extent of that rotation, because the ping pong ball can rotate horizontally and vertically,
+and they can be independent, so one number can't possibly describe that rotation.
+
+So we start to use vectors, as a way to get a 2D number to describe both possible axes of rotation.
+
+This vector happens to be $\nabla \times \vec{\mathbf{F}}$, seemingly as a notational trick.
+I have an extremely hard time imagining this really meaning anything other than a nice way to write the computation.
+
+I really need to come back to this and think some more on it, but I need to think about anything else for a bit.
+Even Grant kind of threw up his hands in the Khan Academy lecture, so I don't feel too bad about leaving it at just this.
+If you aren't me and you're reading this, I have almost certainly forgotten to come back.
+
+\subsection{The "real" definition of divergence and curl}
+In defining how to actually compute divergence and curl, we played some notational tricks.
+We started using vectors that didn't have numbers and determinants of matricies with vectors and numbers and partial differential operators as elements.
+That breaks the rules a little, and it breaks them for good reason.
+Thinking about curl and divergence as some product of $\nabla$ and $\vec{\mathbf{F}}$ is nice and easy to compute.
+What follows is the more formal, less cheaty, way to define divergence and curl.
+
+We'll start with (2D) divergence, whose formula is pretty nasty.
+\begin{gather*}
+    \text{div}\,\vec{\mathbf{F}}(x, y) = \lim_{\left| A_{(x, y)} \right| \to 0} \frac{1}{\left| A_{(x, y)} \right|} \oint_C \vec{\mathbf{F}} \cdot \hat{n}\, ds
+\end{gather*}
+So we start out pretty scary.
+First off, let's define all of the random symbols.
+$\vec{\mathbf{F}}$ is the vector field.
+
+$(x, y)$ is some point on the plane
+
+$A_{(x, y)}$ is a region of the xy plane, which includes $(x, y)$ somewhere inside it (hence the subscript)
+
+$\left|A_{(x, y)}\right|$ is the area of the region
+
+The limit term means we consider the limit as the area shrinks to zero, i.e. we shrink $A$ down to $(x, y)$
+
+$C$ is the boundary of the region, the curve that defines the edge of it.
+
+And the line integral $\oint_C \vec{\mathbf{F}} \cdot \hat{n}\, ds$ is the 2D flux of $\vec{\mathbf{F}}$ through the boundary of the region, called $C$
+
+With all of that defined, it's time to figure out what it all means and does.
+Again, this is the formula for divergence, the tendency for fluid to flow away from a point.
+
+\textbf{I need to learn a whole bunch of stuff abount line integrals before I even think more about this.}
+
+
+\subsection{Line Integrals}
+\subsubsection{Over Scalar Spaces}
+When we were doing normal integrals, say in 2D, we added up all of the subareas of the function on some interval.
+
+In 3D, we added up all of the subvolumes that exist on some domain.
+
+We could also consider that domain to be a curve, in which case the machinery we had for computing integrals over regions doesn't really help us, so we'll invent some machinery and call it a line integral.
+
+When we integrate along a curve, we are trying to find the area of the curtain/fence/sheet of paper that is created by connecting the curve on the 2D plane
+all the way up to the height of the surface above.
+
+We just need to do a normal integral over this, but with some careful consideration about how to make the rectangles.
+
+First off, we want a way to be able to turn this curve into a function of one variable, because the curtain/fence/sheet of paper is itself a 2D object,
+and we take 2D integrals against one variable.
+If we can find the parametric equation of the curve, then we can integrate with respect to t and all is well.
+
+Finding this parametric equation isn't so bad either.
+If you have a simple function like $y = x^2 + 5x + 2$, then you can parametrize this equation super easily by just letting $x = t$,
+so that your parameterization is $x = t, y = t^2 + 5t + 2$, which will give you the same curve.
+And it's important to remember exactly why we want this parameterization.
+When we integrate, we add areas of rectangles at every point on the curve.
+This parametric equation will allow us to easily hit all points just by scaling $t$.
+
+Our integral, then, will look something like
+\begin{gather*}
+    \int_{t=a}^{t=b} \text{something} \, dt
+\end{gather*}
+
+So this integral will hit every point on our curve, but now we need to construct the rectangles.
+Every $dt$ results in some nudge along the function.
+$dt$ will nudge both the x and y values so as to keep along the function.
+The nudge forms the base of our rectangle when we integrate, so we need to find the length of that nudge, and finding it is simple enough.
+It's just the distance from our start point to the nudge, which looks like
+\begin{gather*}
+    \sqrt{\frac{\partial x}{\partial t}^2 + \frac{\partial y}{\partial t}^2}
+\end{gather*}
+Where $x$ and $y$ are the parametric equations of our curve $C$.
+
+Now that we have the base, we just multiply it by the height, which is definitionally the height of the surface, so we finish with an integral that looks like
+\begin{gather*}
+    \int_{t=a}^{t=b} f(x, y, z) \sqrt{\frac{\partial x}{\partial t}^2 + \frac{\partial y}{\partial t}^2} \, dt
+\end{gather*}
+Which, to recap, finds the area of the curtain/fence/sheet of paper created from the curve on the xy plane that is stretched up to reach the 3D surface.
+That area is computed by adding up rectangles of height $f(x, y, z)$, from the surface, and base formed by the length of a nudge in t, and a nudge in t nudges both x and y, because they both depend on t.
+So that base becomes the distance from our start point, to a new point on the curve after some nudge $dt$
+
+\subsubsection{Over Vector Fields}
+When we integrate over curves in space, we are interested in finding areas and volumes, and that's all very nice and straightforward.
+We can also integrate over vector fields (every single explanation of line integrals over vector fields loves to point out that 
+it's used for computing work done by a force, but I don't really know what work is, so that isn't helpful).
+
+When we take line integrals over vector fields, we draw a path throuh the vector field (because that's what a line integral cares about)
+and along that path measure just how helpful the vector field is being at each point.
+We can measure this by knowing where we are going (the derivative will tell us that) and then asking how much the vector from the field at this point is helping us get there.
+If the vector is pointing in the opposite direction it's negatively helpful, and if it's pointing exactly where we are about to be, it's maximally helpful.
+
+One way to interpret this is to think about sailing across the ocean.
+If we dictate a path, the line integral gives us a score of how easy it will be to take this path.
+If the score is high, then the ocean is helping us along by pushing us in the direction of our desired path.
+If the ocean is still, we have to do all of the work ourselves, so it's a neutral score,
+and if the ocean is actively pushing us perpendicular off of our path the whole time, we have to work extra hard to stay on the path, so it's negatively easy.
+
+It's not too hard to sum this one up.
+Like a normal line integral, if we can just parameterize the curve, the integral is as easy as
+\begin{gather*}
+    \int_{t=a}^{t=b} \vec{\mathbf{F}}(r(t)) \cdot \vec{r}^{\,\prime} (t) \, dt
+\end{gather*}
+Where $\vec{r}(t)$ is the parameterized function,
+which means that $\vec{r}^{\,\prime} (t)$ is the tangent vector at that point, which tells us where we end up next.
+When we dot the value of the vector field with the tangent vector to the curve at the point that we're standing on, we get a metric of how helpful the field is being.
+
+And again, this returns a scalar which represents that helpfulness score, which makes sense because we are adding up a whole bunch of dot products.
+
+\subsubsection{The Fundamental Theorem of Line Integrals}
+I don't like how people teach the fundamental theorems of calculus.
+I'll try a very slightly different take.
+
+If you take the gradient of a function $f$, this gives you a vector field that points in the direction of steepest ascent.
+
+If you walk along that vector field in any path (let's imagine the surface is above you, and the arrows are on flat ground), you can know how much you're climbing just by looking at the vectors on the ground.
+If you walk exactly along the vector, you add that vector to your height.
+If you walk opposite that vector, you can subtract it.
+And anywhere in between lets you know what portion of the steepest ascent you are walking.
+
+When you travel along any path on that gradient field, you know how much you would be climbing the function by if you just look at those vectors.
+So one way to find the height difference between two points on a surface is to walk a path between those points on the gradient field,
+and becuase the vectors in that field point towards the best direction to ascend, you can take a component of each gradient vector that you touch to know how much you ascend,
+even if you don't follow that vector exactly.
+
+When you take a path between two points, and walk along it adding up the component of the ascent vectors that you are following, it becomes clear that the path doesn't actually matter.
+The difference in heights between two points is completely independent on how you walk from the first point to the second.
+If you go down a valley before climbing up to your point, the changes will cancel out.
+Because you are measuring \emph{all} of your changes in height as you walk, downs will cancel ups.
+
+If we just write out that idea in notation, we are taking a line integral over any path between points $P$ and $Q$.
+And along that path we add up the component of the gradient vector that we walk along.
+\begin{gather*}
+    \int_{t=a}^{t=b} \nabla f(r(t)) \cdot \vec{r}^{\,\prime} (t) \, dt
+\end{gather*}
+And that integral equals the difference in height, so we know that 
+\begin{gather*}
+    \int_{t=a}^{t=b} \nabla f(r(t)) \cdot \vec{r}^{\,\prime} (t) \, dt = f(Q) - F(P)
+\end{gather*}
+if $P$ and $Q$ are your start and endpoints, i.e. $P = \vec{r}(a)$ and $Q = \vec{r}(b)$
 \end{document}
