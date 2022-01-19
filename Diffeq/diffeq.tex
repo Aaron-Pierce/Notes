@@ -1,0 +1,110 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{parskip}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\newcommand{\externalLink}[2]{\emph{\underline{\href{#1}{#2}}}}
+
+
+\title{Notes on Ordinary Differential Equations}
+\author{Aaron Pierce}
+\date{Spring 2021} % to remove date from \maketitle
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{The Forest View}
+Differential equations inherently involve changes.
+Their most straightforward applications are to model physical phenomena. 
+For example, it's easy to state that a falling apple accelerates at -9.81 meters per second,
+however, it's not so easy to ask how many meters that apple has fallen after, say, 3 seconds.
+
+If we define the position of the apple to be $f(t)$, we know that $f''(t) = -g$,
+as acceleration is the second derivative of position.
+
+If we take two integrals of that acceleration function, we arrive at the position function,
+and we've derived the free fall equation without much work.
+
+Differential Equations are a tool to solve problems with that general shape to them.
+It's easy to state how something changes, but not so easy to figure out the exact
+value of that something.
+
+In the free fall case, it was unusually easy to state how the system changes, as it was a constant,
+but some systems are not as straightforward.
+
+For example, if you have some money in an account accruing 6\% yearly interest,
+and you contribute another thousand a year,
+then your rate of change is $A'(y) = 0.06A(y) + 1000$.
+Where $A$ is how much money you have and $y$ is the number of years that have passed.
+Meaning that every year you gain 6\% of however much money you have ($0.06A(y)$),
+and then you add a thousand dollars ($+1000$).
+
+So how do you solve this?
+Before, we just integrated the derivative function, but now it has
+a term that doesn't have a meaningful intergral! $\int A(y) \, dy$ is meaningless to us right now,
+so we can't just take $\int A'(y) \, dy$, because $A'(y)$ is itself some function of $A(y)$.
+
+The forest view of Differential Equations (at least from what my class looks like), is to
+develop a toolbox of techniques to tackle various forms of equations like these, where
+finding solutions to the equations is not obvious, easy, or even possible.
+The following notes will be divided into sections by the types of Differential Equations,
+and will detail how you would solve such an equation.
+
+Truthfully, I think that sounds woefully boring. This is what we have WolframAlpha for, after all.
+But I will blindly believe the masters before me who seem very steadfast that
+learning these techniques is a productive use of time.
+I'm not in much of a position to argue otherwise.
+
+
+\section{The First Order Differential Equation}
+The order of a Differential Equation is the highest derivative in the function.
+So a function that involves first, second, and third derivatives is a third order function.
+First order means that only $y$ and $y'$ are legal to be used, along with any functions of $x$ in there.
+
+Speaking of, it's worth establishing some notation.
+The variables in all of these equations are assumed to be of $x$,
+and all functions are called $y$.
+So $y$ is exactly the same was writing $y(x)$, and $y'$ or $y'''$ denote derivaties of $y(x)$.
+And derivatives can also be expressed as $\frac{dy}{dx}$, which will be useful in about 2 paragraphs time.
+
+\subsection{Separable Equations}
+I usually spend a lot of time trying to gain understandings or intution for 
+just about any mathematical concept I learn. However,
+separable equations are so darn convienient, and so believable too,
+that I'm inclined to only mention their existance, instead of justifying it.
+
+If you have a derivative that looks like $\frac{dy}{dx} = \frac{Q(x)}{R(y)}$,
+then you can multiply off the $R(y)$ and the $dx$ to have $R(y) dy = Q(x) dx$,
+and you can slap an integral sign on both sides, $\int R(y) \,dy = \int Q(x) \,dx$,
+and assuming the functions have integrals, you achieve some function of y equaling some function of x,
+so you can re-arrange it and find a solution.
+
+In general, if you can get all the $y$ terms on one side, and all the $x$ terms on the other,
+separable equations will make your life easy.
+
+\subsection{Linear Differential Equations}
+This one has a neat trick that's actually pretty fun, so we'll take more time here.
+
+If your equation is of the form $y' + p(x)y = q(x)$, we run into the problem from a few sections earlier.
+We can't just rearrange the equation and take the integral of $q(x) - p(x)y$, because we can't do anything with $\int p(x)y$.
+We don't even know what $y$ is, let alone its integral.
+
+However, there's a neat little trick we can do.
+$y' + p(x)y$ looks a little like the product rule.
+there's a y' term added to a y term with some other function,
+so we're not exactly there, but we're close.
+If this term is a product rule, though, then we can find some other function
+that has a derivative equal to $y' + p(x)y$. What is that function?
+We need to do some tinkering first. If we take $(a(x)y)'$, its derivative is
+$a(x)y' + a'(x)y$. That's almost $y' + p(x)y$, just so long as $a(x) = 1$ and $a'(x) = p(x)$.
+That's a serious problem, though, because the derivative of 1 is 0, which is probably not equal to $p(x)$
+
+$(ye^{\int P(x) \, dx})' = y'e^{\int P(x) \, dx} + P(x)ye^{\int P(x) \, dx}$
+\end{document}

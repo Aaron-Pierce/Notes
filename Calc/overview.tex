@@ -22,12 +22,15 @@
 
 \section{Early Chapters}
 
-The beginning chapters aren't as noteworthy as the later ones, but they are still valuable. The following is a collection of the most important or interesting parts
+The beginning chapters aren't as noteworthy as the later ones, but they are still valuable. 
+The following is a collection of the most important or interesting parts, in limited detail because it's mostly background moreso than the focus of the class.
 
 \subsection{Dot Products}
-Dot products are a form of vector multiplication. 
+Dot products are a form of vector multiplication.
+If you think about a vector as being a multidimensional number, it makes sense that you would want to multiply or add them together, because we do those very same things on ordinary one dimensional numbers.
 
-\textbf{Definition:} The dot product of two vectors ($\vec{A} \cdot \vec{B}$) is a real number given by the length of the projection of one vector onto another times the length of the vector being projected on.
+\textbf{Definition:} The dot product of two vectors ($\vec{A} \cdot \vec{B}$) is a real number given by the length of the projection of one vector onto another 
+times the length of the vector being projected on.
 
 That's a mouthful, and I like pictures.
 
@@ -72,9 +75,11 @@ multiplying their lengths, and adding all of those multiplications up, which giv
 
 
 \subsection{Cross Products}
-Cross products are, in my head, the counterpoint to a dot product. Whereas you can think of the dot product as what two vectors have in common (the component of one on another), the cross product gives the opposite, what the vectors do not have in common
+Cross products are something of the opposite to the dot product. 
+Whereas you can think of the dot product as what two vectors have in common (the component of one on another), 
+the cross product gives the opposite, what the vectors do not have in common.
 
-Yet again we have two definitions, a geometric definition (again preferred by me), and an algebraic one
+Yet again we have two definitions, a geometric definition (that I think is preferable), and an algebraic one
 
 \textbf{Geometric Definition:} The cross product of two vectors ($\vec{A} \times \vec{B}$) is a new vector that is orthogonal to both vectors, whose length is equal to the area of the parallelogram formed by the two vectors being crossed.
 
@@ -87,8 +92,8 @@ Yet again we have two definitions, a geometric definition (again preferred by me
 This seems a little strange. Why this definition of all things? It becomes a little clearer when we consider what the area of a parallelogram actually is.
 This area is given by the base times the height, or for the vectors in the picture, $|\vec{A}| |\vec{B}|\sin(\theta)$, because $|\vec{A}|$ is the length of the base and $|\vec{B}|\sin(\theta)$ gives the height
 
-So if the length of the cross product is this area, then $|\vec{A} \times \vec{B}| = |\vec{A}| |\vec{B}|\sin(\theta)$, and because we have introduced $\theta$, this becomes a very useful formula.
-
+So if we define the length of the cross product to be equal to this area, then $|\vec{A} \times \vec{B}| = |\vec{A}| |\vec{B}|\sin(\theta)$, and because we have introduced $\theta$, we have created a very useful formula.
+The mere presence of $\theta$ allows us to exploit this formula for a number of different purposes.
 One use is to find the distance from a point and a line, which can be computed by crossing two vectors to form a parallelogram between the line and the point, and dividing by the length of its base to find the point's distance off the line.
 
 It's worth specifically noting that the cross product returning an orthogonal vector is particularly powerful and useful. The length is arguably less useful of the two properties.
@@ -251,7 +256,6 @@ The contour map of a 3D function is created by taking horizontal slices of the f
 \newpage
 
 \section{The Multidimensional Chain Rule}
-What came before was all pretty clear the first time through. After this, though, was when the lectures started to get muddy, which inspired me to take some more detailed notes.
 
 The multidimension chain rule is a weird one. I couldn't ever find a satisfactory answer, intuition, or explanation for why it made sense.
 
@@ -339,7 +343,9 @@ This gives you what we had earlier. You keep unpacking various partial derivativ
 My professor really likes emphasizing this derivative matrix $Df(x)$, which I think is supposed to be the \externalLink{https://en.wikipedia.org/wiki/Total_derivative}{Total Derivative} but everything about this seems like we'll get to it later so I'll skip it for now and instead focus on
 
 \section{The Gradient and Directional Derivatives}
-So first off, the gradient is, according to Grant Sanderson, weird. We'll start with the algebraic definition.
+The gradient is a little tricky to explain, because it's hard to find a good angle to attack it from.
+
+We'll start with the algebraic definition, which is always a little unsatisfying, but it's easy to get a pretty good picture quickly.
 
 \begin{gather*}
     \nabla f(x, y, ...) = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \dots)
@@ -1480,4 +1486,55 @@ To write the full thing out
 Knowing this intuition also makes it pretty clear what happens when you have holes in your domain.
 Like if you have a circlular domain with a circle cut out of its center, you just subtract off the integral of the region that isn't in the domain.
 It's important you do that because the border of the cut out hole is getting canceled when it shouldn't, so you need to un-cancel it by subtracting its curl.
+
+\subsection{Stokes' Theorem and the Divergence Theorem}
+The intuition for Green's Theorem extends very nicely into 3 dimensions.
+Stokes' Theorem is a very direct translation of Green's that states that the line integral around the boundary of a surface is the same as adding up the curl of every point on the surface,
+for exactly the same reason as Green's theorem. It takes a little bit of gymnastics to capture that idea in notation, though, because 3 dimensional curl is represented as a vector.
+
+The curl vector is a really neat way to capture rotation. 
+You can rotate a ball about any of the 3 axes, so we can encode the rotation about each of those axes in their component in a vector.
+
+Recall 2D curl. 
+It is computed as $\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}$, which measures how close to a whirlpool the vectors around a point are.
+This rotation occurs in the xy plane, because it was in 2D.
+Because you're rotating in the xy plane, the rotation occurs about the z axis.
+So we'll begin the construction of our curl vector from the back, as it should look like $(?\, , ?\, , \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y})$.
+
+To fill out the question marks, think about how we could set that in place.
+We looked straight down the z axis, to look at the xy plane.
+If we look straight down the x axis instead, we look at the yz plane.
+The y axis is the left to right, and the z axis the up to down, if you recall the whirlpool setup, its clear that we should compute curl as $\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}$.
+In other words, how the vertical component of the vector changes as you move horizontally (along the y), minus how the horizontal (y) component of the vector changes as you move along the z axis.
+That's exactly how we set up the whirlpool, but now we look at it like a painting on a wall instead of something on the floor.
+
+By the exact same reasoning, we can deduce the y component of the curl vector to be $\frac{\partial R}{\partial x} - \frac{\partial P}{\partial z}$.
+Our final curl vector then comes out to 
+
+\begin{gather*}
+    curl_{3D} = \left( \frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}, \frac{\partial R}{\partial x} - \frac{\partial P}{\partial z}, \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right)
+\end{gather*}
+It would be an extreme disservice to just memorize this.
+If you remember that curl measures closeness to the whirlpool vectors, you just need to rename the axes and it falls right out,
+and it becomes clear exactly what this measures.
+Each component is the rotation about that axis, so if you put a basketball in the pool whose flow is represented by the vector field, it will spit out how the ball spins around the x, y, and z axes.
+If you visualize the arrow that this vector describes, imagine it only has an x component.
+The flow will rotate about that arrow, because the arrow has only an x component, and therefore lies on the x axis, and the x component of the vector describes rotation about the x axis.
+If you add more components, you end up with the total axis of rotation of that ball.
+
+This takes us back to Stokes' theorem, because we want to add up all of the curls on a surface.
+If our surface exists only in the xz plane, we \emph{only} care about the curl about the y axis, because other components will give us curl that is off of our surface.
+Therefore, if we dot the curl vector with the normal vector, we only consider the component of the axis of total rotation that lies on the normal vector to our surface,
+which will only consider the curl that directly lies on our surface.
+
+That insight is just about all of the gymnastics necessary to notate Stokes' theorem.
+\begin{gather*}
+    \oint_C \vec{\mathbf{F}} \cdot dr = \iint_S \left(\operatorname{curl} \vec{\mathbf{F}} \right) \cdot \hat{n} \, d\Sigma
+\end{gather*}
+(Sigma is a placeholder, representing the area of a little piece of the surface)
+This says that the line integral around the boundary $C$ of a surface $S$ is the sum of all of the curls on the surface.
+
+However, this isn't what you see a lot.
+You see much more that the right hand side reads $\iint_S \operatorname{curl} \vec{\mathbf{F}} \, dS$
+
 \end{document}

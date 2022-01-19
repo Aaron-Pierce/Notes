@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.1.6)  10 FEB 2021 20:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Arch Linux) (preloaded format=pdflatex 2021.3.19)  21 MAR 2021 14:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/aaron/Projects/Notes/Calc/overview.tex
-(/home/aaron/Projects/Notes/Calc/overview.tex
+**/home/aaron/Projects/Notes/Diffeq/diffeq.tex
+(/home/aaron/Projects/Notes/Diffeq/diffeq.tex
 LaTeX2e <2020-10-01> patch level 2
 L3 programming layer <2020-12-03> xparse <2020-03-03> (/usr/share/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
@@ -398,7 +398,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 File: l3backend-pdftex.def 2020-09-24 L3 backend support: PDF output (pdfTeX)
 \l__kernel_color_stack_int=\count295
 \l__pdf_internal_box=\box60
-) (/home/aaron/Projects/Notes/Calc/overview.aux)
+) (/home/aaron/Projects/Notes/Diffeq/diffeq.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
@@ -447,80 +447,29 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
 LaTeX Info: Redefining \nameref on input line 15.
- (/home/aaron/Projects/Notes/Calc/overview.out) (/home/aaron/Projects/Notes/Calc/overview.out)
+ (/home/aaron/Projects/Notes/Diffeq/diffeq.out) (/home/aaron/Projects/Notes/Diffeq/diffeq.out)
 \@outlinefile=\write4
- (/home/aaron/Projects/Notes/Calc/overview.toc [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+ (/home/aaron/Projects/Notes/Diffeq/diffeq.toc)
 \tf@toc=\write5
- [2]
-<dotproduct.png, id=241, 220.825pt x 176.66pt>
-File: dotproduct.png Graphic file (type png)
-<use dotproduct.png>
-Package pdftex.def Info: dotproduct.png  used on input line 39.
-(pdftex.def)             Requested size: 117.00119pt x 93.60239pt.
- [3 </home/aaron/Projects/Notes/Calc/dotproduct.png>] [4]
-<crossproduct.png, id=259, 220.825pt x 172.645pt>
-File: crossproduct.png Graphic file (type png)
-<use crossproduct.png>
-Package pdftex.def Info: crossproduct.png  used on input line 88.
-(pdftex.def)             Requested size: 117.00119pt x 91.47505pt.
- [5 </home/aaron/Projects/Notes/Calc/crossproduct.png>] [6] [7] [8]
-Overfull \hbox (57.15pt too wide) detected at line 239
-[]
- []
+ [1
 
-[9]
-<contourmap.png, id=285, 853.1875pt x 845.1575pt>
-File: contourmap.png Graphic file (type png)
-<use contourmap.png>
-Package pdftex.def Info: contourmap.png  used on input line 251.
-(pdftex.def)             Requested size: 195.0pt x 193.15701pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[10] [11 </home/aaron/Projects/Notes/Calc/contourmap.png>] [12] [13]
-<chainruletree.png, id=306, 256.96pt x 129.48375pt>
-File: chainruletree.png Graphic file (type png)
-<use chainruletree.png>
-Package pdftex.def Info: chainruletree.png  used on input line 333.
-(pdftex.def)             Requested size: 195.0pt x 98.26245pt.
- [14 </home/aaron/Projects/Notes/Calc/chainruletree.png>] [15] [16] [17]
-<orthogonalContour-min.png, id=328, 1204.5pt x 1204.5pt>
-File: orthogonalContour-min.png Graphic file (type png)
-<use orthogonalContour-min.png>
-Package pdftex.def Info: orthogonalContour-min.png  used on input line 430.
-(pdftex.def)             Requested size: 292.5pt x 292.50443pt.
- [18 </home/aaron/Projects/Notes/Calc/orthogonalContour-min.png>] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]
-<problemaxis.png, id=408, 276.03125pt x 250.9375pt>
-File: problemaxis.png Graphic file (type png)
-<use problemaxis.png>
-Package pdftex.def Info: problemaxis.png  used on input line 791.
-(pdftex.def)             Requested size: 195.0pt x 177.27853pt.
- [33 </home/aaron/Projects/Notes/Calc/problemaxis.png>] [34] [35] [36] [37]
-<polarIntegral.jpg, id=433, 1505.625pt x 1222.5675pt>
-File: polarIntegral.jpg Graphic file (type jpg)
-<use polarIntegral.jpg>
-Package pdftex.def Info: polarIntegral.jpg  used on input line 942.
-(pdftex.def)             Requested size: 195.0pt x 158.32375pt.
- [38 </home/aaron/Projects/Notes/Calc/polarIntegral.jpg>] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51] [52] [53] [54] [55] [56] [57] (/home/aaron/Projects/Notes/Calc/overview.aux)
-Package rerunfilecheck Info: File `overview.out' has not changed.
-(rerunfilecheck)             Checksum: D77033A614C70ADC0B3F9E6E6D7175E2;3341.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] (/home/aaron/Projects/Notes/Diffeq/diffeq.aux)
+Package rerunfilecheck Info: File `diffeq.out' has not changed.
+(rerunfilecheck)             Checksum: 72AF73B845FFC277C2B14F74DD8853A2;268.
  ) 
 Here is how much of TeX's memory you used:
- 16625 strings out of 479383
- 313445 string characters out of 5875831
- 604053 words of memory out of 5000000
- 33298 multiletter control sequences out of 15000+600000
- 412684 words of font info for 59 fonts, out of 8000000 for 9000
+ 16352 strings out of 479383
+ 309162 string characters out of 5875830
+ 599906 words of memory out of 5000000
+ 33144 multiletter control sequences out of 15000+600000
+ 409723 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,18n,85p,649b,707s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on /home/aaron/Projects/Notes/Calc/overview.pdf (57 pages, 602663 bytes).
+ 80i,6n,85p,550b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on /home/aaron/Projects/Notes/Diffeq/diffeq.pdf (4 pages, 105206 bytes).
 PDF statistics:
- 610 PDF objects out of 1000 (max. 8388607)
- 517 compressed objects within 6 object streams
- 121 named destinations out of 1000 (max. 500000)
- 400 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 92 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
+ 45 words of extra memory for PDF output out of 10000 (max. 10000000)
 
